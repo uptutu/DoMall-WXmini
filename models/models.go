@@ -1,6 +1,7 @@
 package models
 
 import (
+	"do-mall/pkg/logging"
 	"fmt"
 	"log"
 
@@ -43,7 +44,7 @@ func init() {
 		dbName))
 
 	if err != nil {
-		log.Println(err)
+		logging.Info(err)
 	}
 
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {

@@ -1,0 +1,31 @@
+basePath: '{{.BasePath}}'
+host: '{{.Host}}'
+info:
+  contact: {}
+  description: '{{.Description}}'
+  license: {}
+  title: '{{.Title}}'
+  version: '{{.Version}}'
+paths:
+  /api/v1/tags:
+    get:
+      parameters:
+      - description: name
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: state
+        in: query
+        name: state
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 获取多个文章标签
+swagger: "2.0"
