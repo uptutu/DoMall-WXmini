@@ -1,7 +1,7 @@
-package authController
+package AuthController
 
 import (
-	"do-mall/models"
+	"do-mall/models/Auth"
 	"do-mall/pkg/e"
 	"do-mall/pkg/logging"
 	"do-mall/pkg/util"
@@ -11,24 +11,24 @@ import (
 )
 
 type auth struct {
-	Username string `valid:"Required; MaxSize(50)"`
+	Mobile string `valid:"Required; MaxSize(50)"`
 	Password string `valid:"Required; MaxSize(50)"`
 }
 
 func GetAuth(c *gin.Context) {
-	username := c.Query("username")
-	password := c.Query("password")
+	mobile := c.PostForm("mobile")
+	password := c.PostForm("password")
 
 	valid := validation.Validation{}
-	a := auth{Username: username, Password: password}
+	a := auth{Mobile: mobile, Password: password}
 	ok, _ := valid.Valid(&a)
 
 	data := make(map[string]interface{})
 	code := e.INVALID_PARAMS
 	if ok {
-		isExist := models.CheckAuth(username, password)
+		isExist := Auth.CheckAuth(mobile, password)
 		if isExist {
-			token, err := util.GenerateToken(username, password)
+			token, err := util.GenerateToken(mobile, password)
 			if err != nil {
 				code = e.ERROR_AUTH_TOKEN
 			} else {

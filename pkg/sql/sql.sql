@@ -13,6 +13,7 @@ CREATE TABLE `users`
     `introduction` char(80)       NOT NULL DEFAULT '' COMMENT '简介',
     `balance`      decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '余额',
     `coin`         decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '平台币',
+    `password`     varchar(255)   NOT NULL DEFAULT '' COMMENT '密码',
 
     `created_at`   int(10)        NOT NULL DEFAULT 0 COMMENT '写入时间',
     `updated_at`   int(10)        NOT NULL DEFAULT 0 COMMENT '更新时间',

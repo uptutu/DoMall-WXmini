@@ -11,12 +11,14 @@ import (
 	"do-mall/pkg/setting"
 )
 
-var db *gorm.DB
+var DB *gorm.DB
 
 type Model struct {
-	ID         int `gorm:"primary_key" json:"id"`
-	CreatedOn  int `json:"created_on"`
-	ModifiedOn int `json:"modified_on"`
+	ID int `gorm:"primary_key" json:"id"`
+
+	CreatedAt int `json:"created_at"`
+	UpdatedAt int `json:"updated_at"`
+	DeletedAt int `json:"deleted_at"`
 }
 
 func init() {
@@ -37,7 +39,7 @@ func init() {
 	host = sec.Key("HOST").String()
 	tablePrefix = sec.Key("TABLE_PREFIX").String()
 
-	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	DB, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		user,
 		password,
 		host,
@@ -51,11 +53,11 @@ func init() {
 		return tablePrefix + defaultTableName;
 	}
 
-	db.SingularTable(true)
-	db.DB().SetMaxIdleConns(10)
-	db.DB().SetMaxOpenConns(100)
+	DB.SingularTable(true)
+	DB.DB().SetMaxIdleConns(10)
+	DB.DB().SetMaxOpenConns(100)
 }
 
 func CloseDB() {
-	defer db.Close()
+	defer DB.Close()
 }

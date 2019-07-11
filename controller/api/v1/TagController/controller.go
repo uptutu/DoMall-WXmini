@@ -1,7 +1,7 @@
-package tagController
+package TagController
 
 import (
-	"do-mall/models"
+	"do-mall/models/Tag"
 	"do-mall/pkg/e"
 	"do-mall/pkg/setting"
 	"do-mall/pkg/util"
@@ -36,8 +36,8 @@ func Get(c *gin.Context) {
 
 	code := e.SUCCESS
 
-	data["lists"] = models.GetTags(util.GetPage(c), setting.PageSize, maps)
-	data["total"] = models.GetTagTotal(maps)
+	data["lists"] = Tag.GetTags(util.GetPage(c), setting.PageSize, maps)
+	data["total"] = Tag.GetTagTotal(maps)
 
 	c.JSON(http.StatusOK, gin.H{
 		"code" : code,
@@ -61,9 +61,9 @@ func Create(c *gin.Context) {
 
 	code := e.INVALID_PARAMS
 	if ! valid.HasErrors() {
-		if ! models.ExistTagByName(name) {
+		if ! Tag.ExistTagByName(name) {
 			code = e.SUCCESS
-			models.AddTag(name, state, createdBy)
+			Tag.AddTag(name, state, createdBy)
 		} else {
 			code = e.ERROR_EXIST_TAG
 		}
