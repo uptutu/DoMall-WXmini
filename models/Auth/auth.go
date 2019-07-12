@@ -8,12 +8,12 @@ type Auth struct {
 	Password string `json:"password"`
 }
 
-func CheckAuth(mobile, password string) bool {
+func CheckAndReturnId(mobile, password string) int {
 	var auth Auth
 	models.DB.Select("id").Where(Auth{Mobile: mobile, Password: password}).First(&auth)
-	if auth.ID > 0 {
-		return true
-	}
+	return int(auth.ID)
+}
 
-	return false
+func (Auth) TableName() string {
+	return "users"
 }

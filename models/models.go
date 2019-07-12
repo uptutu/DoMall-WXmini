@@ -18,7 +18,7 @@ type Model struct {
 
 	CreatedAt int `json:"created_at"`
 	UpdatedAt int `json:"updated_at"`
-	DeletedAt int `json:"deleted_at"`
+	//DeletedAt int `json:"deleted_at"`
 }
 
 func init() {
@@ -49,9 +49,11 @@ func init() {
 		logging.Info(err)
 	}
 
-	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
-		return tablePrefix + defaultTableName;
-	}
+	// 设置数据表前缀
+	_ = tablePrefix
+	//gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
+	//	return tablePrefix + defaultTableName
+	//}
 
 	DB.SingularTable(true)
 	DB.DB().SetMaxIdleConns(10)

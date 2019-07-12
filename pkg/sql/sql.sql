@@ -18,7 +18,10 @@ CREATE TABLE `users`
     `created_at`   int(10)        NOT NULL DEFAULT 0 COMMENT '写入时间',
     `updated_at`   int(10)        NOT NULL DEFAULT 0 COMMENT '更新时间',
     `deleted_at`   int(10)        NOT NULL DEFAULT 0 COMMENT '删除时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE (`mobile`),
+    UNIQUE (`openid`),
+    UNIQUE (`unionid`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='用户表';

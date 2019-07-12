@@ -89,5 +89,5 @@ func GetMsg(code int) string {
 		return msg
 	}
 
-	return MsgFlags[ERROR]
+	return MsgFlags[INTERNAL_SERVER_ERROR]
 }

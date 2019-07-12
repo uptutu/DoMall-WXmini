@@ -1,6 +1,7 @@
 package util
 
 import (
+	"do-mall/models/User"
 	"do-mall/pkg/setting"
 	"github.com/dgrijalva/jwt-go"
 	"time"
@@ -9,21 +10,19 @@ import (
 var jwtSecret = []byte(setting.JwtSecret)
 
 type Claims struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	User User.User
 	jwt.StandardClaims
 }
 
-func GenerateToken(username, password string) (string, error) {
+func GenerateToken(id int) (string, error) {
 	nowTime := time.Now()
 	expireTime := nowTime.Add(3 * time.Hour)
-
+	user := User.GetInfo(id)
 	claims := Claims{
-		username,
-		password,
-		jwt.StandardClaims {
-			ExpiresAt : expireTime.Unix(),
-			Issuer : "gin-init",
+		user,
+		jwt.StandardClaims{
+			ExpiresAt: expireTime.Unix(),
+			Issuer:    "gin-init",
 		},
 	}
 

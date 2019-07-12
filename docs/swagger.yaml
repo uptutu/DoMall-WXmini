@@ -28,4 +28,25 @@ paths:
           schema:
             type: string
       summary: 获取多个文章标签
+  /api/v1/user:
+    post:
+      parameters:
+      - description: mobile
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: password
+        in: query
+        name: state
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":201,"data":{},"msg":"Created"}'
+          schema:
+            type: string
+      summary: 注册用户
 swagger: "2.0"
