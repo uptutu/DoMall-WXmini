@@ -15,13 +15,13 @@ func JWT() gin.HandlerFunc {
 		var code int
 		var data interface{}
 
-		code = e.SUCCESS
+		code = e.OK
 		token := c.GetHeader("Authorization")
 		if token == "" {
-			code = e.INVALID_PARAMS
+			code = e.BAD_REQUEST
 		} else {
 			if !strings.HasPrefix(token, "Bearer ") {
-				code = e.INVALID_PARAMS
+				code = e.BAD_REQUEST
 			} else {
 				token = token[len("Bearer "):]
 				claims, err := util.ParseToken(token)
@@ -34,7 +34,7 @@ func JWT() gin.HandlerFunc {
 
 		}
 
-		if code != e.SUCCESS {
+		if code != e.OK {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code": code,
 				"msg":  e.GetMsg(code),

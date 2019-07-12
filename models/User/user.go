@@ -5,7 +5,7 @@ import "do-mall/models"
 type User struct {
 	models.Model
 
-	Password     string  `json:"password"`
+	Password     string  `json:"-"`
 	Unionid      string  `json:"unionid"`
 	Openid       string  `json:"openid"`
 	Nickname     string  `json:"nickname"`
@@ -15,7 +15,6 @@ type User struct {
 	Introduction string  `json:"introduction"`
 	Balance      float32 `json:"balance"`
 	Coin         float32 `json:"coin"`
-
 }
 
 func GetInfo(id int) (user User) {

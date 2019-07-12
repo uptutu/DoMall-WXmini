@@ -186,3 +186,24 @@ CREATE TABLE `orders`
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='订单表';
 
+
+-- 管理员表
+DROP TABLE IF EXISTS `admins`;
+CREATE TABLE `admins`
+(
+    `id`         int(11)      NOT NULL AUTO_INCREMENT COMMENT '主键',
+
+    `nickname`   char(80)     NOT NULL DEFAULT '' COMMENT '用户名',
+    `avatar`     varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
+    `username`   char(18)     NOT NULL DEFAULT '' COMMENT 'Username',
+    `password`   varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
+
+    `created_at` int(10)      NOT NULL DEFAULT 0 COMMENT '写入时间',
+    `updated_at` int(10)      NOT NULL DEFAULT 0 COMMENT '更新时间',
+    `deleted_at` int(10)      NOT NULL DEFAULT 0 COMMENT '删除时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = utf8 COMMENT ='管理员表';
+-- 插入管理员
+INSERT INTO `admins`(nickname, avatar, username, password) VALUES ('Admin', 'xxxxxx', 'admin','123456')

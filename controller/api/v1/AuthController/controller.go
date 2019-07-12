@@ -24,7 +24,7 @@ func GetAuth(c *gin.Context) {
 	ok, _ := valid.Valid(&a)
 
 	data := make(map[string]interface{})
-	code := e.INVALID_PARAMS
+	code := e.BAD_REQUEST
 	if ok {
 		isExist := Auth.CheckAuth(mobile, password)
 		if isExist {
@@ -34,7 +34,7 @@ func GetAuth(c *gin.Context) {
 			} else {
 				data["token"] = token
 
-				code = e.SUCCESS
+				code = e.OK
 			}
 
 		} else {

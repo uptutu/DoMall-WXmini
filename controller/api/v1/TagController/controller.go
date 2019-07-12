@@ -34,15 +34,15 @@ func Get(c *gin.Context) {
 		maps["state"] = state
 	}
 
-	code := e.SUCCESS
+	code := e.OK
 
 	data["lists"] = Tag.GetTags(util.GetPage(c), setting.PageSize, maps)
 	data["total"] = Tag.GetTagTotal(maps)
 
 	c.JSON(http.StatusOK, gin.H{
-		"code" : code,
-		"msg" : e.GetMsg(code),
-		"data" : data,
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": data,
 	})
 }
 
@@ -59,10 +59,10 @@ func Create(c *gin.Context) {
 	valid.MaxSize(createdBy, 100, "created_by").Message("创建人最长为100字符")
 	valid.Range(state, 0, 1, "state").Message("状态只允许0或1")
 
-	code := e.INVALID_PARAMS
+	code := e.BAD_REQUEST
 	if ! valid.HasErrors() {
 		if ! Tag.ExistTagByName(name) {
-			code = e.SUCCESS
+			code = e.OK
 			Tag.AddTag(name, state, createdBy)
 		} else {
 			code = e.ERROR_EXIST_TAG
@@ -70,9 +70,9 @@ func Create(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"code" : code,
-		"msg" : e.GetMsg(code),
-		"data" : make(map[string]string),
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": make(map[string]string),
 	})
 }
 
