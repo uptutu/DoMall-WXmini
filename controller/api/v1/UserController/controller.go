@@ -24,6 +24,7 @@ func Create(c *gin.Context) {
 
 	data := make(map[string]interface{})
 	code := e.INTERNAL_SERVER_ERROR
+	var msg string
 
 	mobile := c.PostForm("mobile")
 	password := c.PostForm("password")
@@ -66,15 +67,22 @@ func Create(c *gin.Context) {
 					code = e.CREATED
 					data["token"] = token
 				}
+			} else {
+				code = e.UNAUTHORIZED
+				msg = "用户名或密码错误"
 			}
 
 		}
 
 	}
 
+	if msg == "" {
+		msg = e.GetMsg(code)
+	}
+
 	c.JSON(code, gin.H{
 		"code": code,
-		"msg":  e.GetMsg(code),
+		"msg":  msg,
 		"data": data,
 	})
 }
@@ -92,6 +100,7 @@ func Show(c *gin.Context) {
 func Login(c *gin.Context)  {
 	data := make(map[string]interface{})
 	code := e.INTERNAL_SERVER_ERROR
+	var msg string
 
 	mobile := c.PostForm("mobile")
 	password := c.PostForm("password")
@@ -128,14 +137,22 @@ func Login(c *gin.Context)  {
 				code = e.CREATED
 				data["token"] = token
 			}
+		} else {
+			code = e.UNAUTHORIZED
+			msg = "用户名或密码错误"
 		}
+
 
 
 	}
 
+	if msg == "" {
+		msg = e.GetMsg(code)
+	}
+
 	c.JSON(code, gin.H{
 		"code": code,
-		"msg":  e.GetMsg(code),
+		"msg":  msg,
 		"data": data,
 	})
 
