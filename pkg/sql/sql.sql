@@ -26,41 +26,6 @@ CREATE TABLE `users`
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='用户表';
 
--- 品牌表
-DROP TABLE IF EXISTS `brands`;
-CREATE TABLE `brands`
-(
-    `id`         int(11)      NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `name`       char(40)     NOT NULL DEFAULT '' COMMENT '品牌名',
-    `logo`       varchar(255) NOT NULL DEFAULT '' COMMENT 'logo',
-
-    `created_at` int(10)      NOT NULL DEFAULT 0 COMMENT '写入时间',
-    `updated_at` int(10)      NOT NULL DEFAULT 0 COMMENT '更新时间',
-    `deleted_at` int(10)      NOT NULL DEFAULT 0 COMMENT '删除时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = utf8 COMMENT ='品牌表';
-
--- 系列表
-DROP TABLE IF EXISTS `series`;
-CREATE TABLE `series`
-(
-    `id`         int(11)      NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `b_id`       int(11)      NOT NULL DEFAULT 0 COMMENT '品牌id',
-    `name`       char(40)     NOT NULL DEFAULT '' COMMENT '系列名',
-    `logo`       varchar(255) NOT NULL DEFAULT '' COMMENT '系列图标',
-
-    `created_at` int(10)      NOT NULL DEFAULT 0 COMMENT '写入时间',
-    `updated_at` int(10)      NOT NULL DEFAULT 0 COMMENT '更新时间',
-    `deleted_at` int(10)      NOT NULL DEFAULT 0 COMMENT '删除时间',
-    PRIMARY KEY (`id`),
-    CONSTRAINT b_id_fk FOREIGN KEY (b_id) REFERENCES brands (id)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = utf8 COMMENT ='系列表';
-
-
 -- 商品表
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products`
@@ -70,8 +35,8 @@ CREATE TABLE `products`
     `title`         char(80)       NOT NULL DEFAULT '' COMMENT '商品名',
     `cover`         varchar(255)   NOT NULL DEFAULT '' COMMENT '商品封面图',
     `carousel`      text COMMENT '商品图集',
-    `brand`         int(11)        NOT NULL DEFAULT 0 COMMENT '品牌',
-    `series`        int(11)        NOT NULL DEFAULT 0 COMMENT '系列',
+    `brand`         char(40)       NOT NULL DEFAULT '' COMMENT '品牌名',
+    `series`        char(40)       NOT NULL DEFAULT '' COMMENT '系列名',
     `price`         decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '零售价',
     `selling_price` decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '售价',
     `cost`          decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '成本价',
@@ -89,9 +54,7 @@ CREATE TABLE `products`
     KEY (`selling_price`),
     KEY (`cost`),
     KEY (`title`),
-    KEY (`tags`),
-    CONSTRAINT brand_fk FOREIGN KEY (brand) REFERENCES brands (id),
-    CONSTRAINT series_fk FOREIGN KEY (series) REFERENCES series (id)
+    KEY (`tags`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='商品表';
