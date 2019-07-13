@@ -209,4 +209,5 @@ CREATE TABLE `admins`
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='管理员表';
 -- 插入管理员
-INSERT INTO `admins`(nickname, avatar, username, password) VALUES ('Admin', 'xxxxxx', 'admin','123456')
+INSERT INTO `admins`(nickname, avatar, username, password)
+VALUES ('Admin', 'xxxxxx', 'admin', '123456')

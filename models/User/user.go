@@ -46,5 +46,12 @@ func CreateByPasswd(user *User) bool {
 	}
 
 	return false
+}
 
+func Update(user *User, data interface{}) bool {
+	if err := models.DB.Debug().Model(user).Update(data).Error; err != nil {
+		logging.Info(err)
+		return false
+	}
+	return true
 }

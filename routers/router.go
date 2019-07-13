@@ -42,6 +42,7 @@ func InitRouter() *gin.Engine {
 			userRoute.POST("/register", UserController.Create)
 			userRoute.POST("/login", UserController.Login)
 			userRoute.GET("/index", jwt.JWT(), UserController.Show)
+			userRoute.PUT("/:id", jwt.JWT(), UserController.Update)
 		}
 
 	}
