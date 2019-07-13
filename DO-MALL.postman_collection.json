@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "538347e3-025f-4efa-9598-9e1128bf30b3",
+		"name": "DO-MALL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FrontEnd",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "mobile",
+											"value": "15982437750",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/user/register",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Info",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjowLCJjcmVhdGVkX2F0IjowLCJ1cGRhdGVkX2F0IjowLCJkZWxldGVkX2F0IjowLCJuaWNrbmFtZSI6IiIsImF2YXRhciI6IiIsInNleCI6MCwibW9iaWxlIjoiIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MjkzNTM3OCwiaXNzIjoiZ2luLWluaXQifQ.mKULJqKiibAsz-XRcHsDIZj6KKsczPqEwloKopg_szs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/user/index",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "mobile",
+											"value": "15982437750",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/user/login",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Info",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjowLCJ1cGRhdGVkX2F0IjowLCJuaWNrbmFtZSI6IiIsImF2YXRhciI6IiIsInNleCI6MCwibW9iaWxlIjoiMTU5ODI0Mzc3NTAiLCJpbnRyb2R1Y3Rpb24iOiIiLCJiYWxhbmNlIjowLCJjb2luIjowfSwiZXhwIjoxNTYzMDAyMTcyLCJpc3MiOiJnaW4taW5pdCJ9.0am9HEyVf8n0lUNpSf_N-JFoeYGefIk6NRgXD5ptgZA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "nickname",
+											"value": "username",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "introduction",
+											"value": "xxxxxxxxxxxxxxxxxxxxxx",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "sex",
+											"value": "1",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "avatar",
+											"value": "http://qq.com/dasdasdsad_Dasd-sd-as-dasdasd",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/user/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Brands",
+					"item": [
+						{
+							"name": "Brands List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/brand/index",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"brand",
+										"index"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Products",
+					"item": [],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "BackEnd",
+			"item": [
+				{
+					"name": "AdminLogin",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/adminUserLogin",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"adminUserLogin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Info",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjowLCJ1cGRhdGVkX2F0IjowLCJuaWNrbmFtZSI6IkFkbWluIiwiYXZhdGFyIjoieHh4eHh4IiwidXNlcm5hbWUiOiJhZG1pbiJ9LCJleHAiOjE1NjI5OTY5ODIsImlzcyI6Imdpbi1pbml0In0.g5x8Rc-d8SfoDBacyU1YG0JoEzXyDY1A1mCrGlYHITM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/admin/info",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"admin",
+										"info"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Brands",
+					"item": [],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Products",
+					"item": [],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}
