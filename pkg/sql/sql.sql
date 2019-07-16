@@ -4,8 +4,8 @@ CREATE TABLE `users`
 (
     `id`           int(11)        NOT NULL AUTO_INCREMENT COMMENT '主键',
 
-    `unionid`      char(80)       NOT NULL DEFAULT '' COMMENT 'UNIONID',
-    `openid`       char(80)       NOT NULL DEFAULT '' COMMENT 'OPENID',
+    `unionid`      char(80)       COMMENT 'UNIONID',
+    `openid`       char(80)       COMMENT 'OPENID',
     `nickname`     char(80)       NOT NULL DEFAULT '' COMMENT '用户名',
     `avatar`       varchar(255)   NOT NULL DEFAULT '' COMMENT '头像',
     `sex`          tinyint(1)     NOT NULL DEFAULT 0 COMMENT '性别,0-未知 1-男 2-女',

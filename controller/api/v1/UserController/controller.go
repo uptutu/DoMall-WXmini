@@ -160,7 +160,7 @@ func Update(c *gin.Context) {
 	data := make(map[string]interface{})
 
 	// 获取处理参数
-	id, err := com.StrTo(c.Param("id")).Int()
+	id, err := com.StrTo(c.Param("user_id")).Int()
 	if err != nil {
 		code = e.BAD_REQUEST
 		msg = "请求错误"
