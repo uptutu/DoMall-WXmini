@@ -4,8 +4,8 @@ CREATE TABLE `users`
 (
     `id`           int(11)        NOT NULL AUTO_INCREMENT COMMENT '主键',
 
-    `unionid`      char(80)       COMMENT 'UNIONID',
-    `openid`       char(80)       COMMENT 'OPENID',
+    `unionid`      char(80) COMMENT 'UNIONID',
+    `openid`       char(80) COMMENT 'OPENID',
     `nickname`     char(80)       NOT NULL DEFAULT '' COMMENT '用户名',
     `avatar`       varchar(255)   NOT NULL DEFAULT '' COMMENT '头像',
     `sex`          tinyint(1)     NOT NULL DEFAULT 0 COMMENT '性别,0-未知 1-男 2-女',
@@ -15,13 +15,15 @@ CREATE TABLE `users`
     `coin`         decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '平台币',
     `password`     varchar(255)   NOT NULL DEFAULT '' COMMENT '密码',
 
-    `created_at`   int(10)        NOT NULL DEFAULT 0 COMMENT '写入时间',
-    `updated_at`   int(10)        NOT NULL DEFAULT 0 COMMENT '更新时间',
-    `deleted_at`   int(10)        NOT NULL DEFAULT 0 COMMENT '删除时间',
+    `created_at`   timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '写入时间',
+    `updated_at`   timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '更新时间',
+    `deleted_at`   timestamp NULL COMMENT '删除时间',
     PRIMARY KEY (`id`),
     UNIQUE (`mobile`),
-    UNIQUE (`openid`),
-    UNIQUE (`unionid`)
+    KEY (`openid`),
+    KEY (`unionid`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='用户表';
@@ -46,9 +48,11 @@ CREATE TABLE `products`
     `status`        tinyint(1)     NOT NULL DEFAULT 0 COMMENT '状态,0-下架 1-上架',
     `on_sale`       tinyint(1)     NOT NULL DEFAULT 0 COMMENT '状态,0-未折扣 1-折扣中',
 
-    `created_at`    int(10)        NOT NULL DEFAULT 0 COMMENT '写入时间',
-    `updated_at`    int(10)        NOT NULL DEFAULT 0 COMMENT '更新时间',
-    `deleted_at`    int(10)        NOT NULL DEFAULT 0 COMMENT '删除时间',
+    `created_at`    timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '写入时间',
+    `updated_at`    timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '更新时间',
+    `deleted_at`    timestamp NULL COMMENT '删除时间',
     PRIMARY KEY (`id`),
     KEY (`series`),
     KEY (`selling_price`),
@@ -64,10 +68,11 @@ CREATE TABLE `products`
 DROP TABLE IF EXISTS `favorites`;
 CREATE TABLE `favorites`
 (
-    `user_id`    char(32) NOT NULL DEFAULT '' COMMENT '用户id',
-    `p_id`       int(11)  NOT NULL DEFAULT 0 COMMENT '商品主键',
+    `user_id`    char(32)  NOT NULL DEFAULT '' COMMENT '用户id',
+    `p_id`       int(11)   NOT NULL DEFAULT 0 COMMENT '商品主键',
 
-    `created_at` int(10)  NOT NULL DEFAULT 0 COMMENT '加入时间',
+    `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '加入时间',
     KEY (`user_id`),
     KEY (`p_id`),
     CONSTRAINT p_id_fk FOREIGN KEY (p_id) REFERENCES products (id)
@@ -107,7 +112,7 @@ CREATE TABLE `carts`
     `o_id`       int(11)    NOT NULL DEFAULT 0 COMMENT '订单主键',
     `number`     int(4)     NOT NULL DEFAULT 0 COMMENT '数量',
     `status`     tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0-未生成订单 1-已生成订单',
-    `created_at` int(10)    NOT NULL DEFAULT 0 COMMENT '加入时间',
+    `created_at` timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '加入时间',
     PRIMARY KEY (`id`),
     KEY (`user_id`),
     KEY (`o_id`),
@@ -136,15 +141,19 @@ CREATE TABLE `orders`
     `express_title` char(40)   NOT NULL DEFAULT '' COMMENT '物流公司',
     `express_code`  char(20)   NOT NULL DEFAULT '' COMMENT '物流编号',
     `express_no`    char(40)   NOT NULL DEFAULT '' COMMENT '物流单号',
-    `express_time`  int(10)    NOT NULL DEFAULT 0 COMMENT '发货时间',
+    `express_time`  timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '发货时间',
 -- 订单信息
     `total`         int(8)     NOT NULL DEFAULT 0 COMMENT '汇总积分',
     `pay_integral`  int(8)     NOT NULL DEFAULT 0 COMMENT '结算积分',
     `status`        tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0-未结算 1-已结算(待发货) 2-已发货(待收货) 3-已完成 9-异常',
-    `created_at`    int(10)    NOT NULL DEFAULT 0 COMMENT '创建时间',
-    `updated_at`    int(10)    NOT NULL DEFAULT 0 COMMENT '结算时间',
-    `pushed_at`     int(10)    NOT NULL DEFAULT 0 COMMENT '推送时间',
-    `deleted_at`    int(10)    NOT NULL DEFAULT 0 COMMENT '完成时间',
+    `created_at`    timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '创建时间',
+    `updated_at`    timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '结算时间',
+    `pushed_at`     timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '推送时间',
+    `deleted_at`    timestamp NULL COMMENT '完成时间',
     PRIMARY KEY (`id`),
     KEY (`user_id`),
     KEY (`status`)
@@ -164,9 +173,11 @@ CREATE TABLE `admins`
     `username`   char(18)     NOT NULL DEFAULT '' COMMENT 'Username',
     `password`   varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
 
-    `created_at` int(10)      NOT NULL DEFAULT 0 COMMENT '写入时间',
-    `updated_at` int(10)      NOT NULL DEFAULT 0 COMMENT '更新时间',
-    `deleted_at` int(10)      NOT NULL DEFAULT 0 COMMENT '删除时间',
+    `created_at` timestamp    NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '写入时间',
+    `updated_at` timestamp    NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '更新时间',
+    `deleted_at` timestamp NULL COMMENT '删除时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1

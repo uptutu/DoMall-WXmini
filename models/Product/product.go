@@ -3,6 +3,7 @@ package Product
 import (
 	"do-mall/models"
 	"do-mall/pkg/logging"
+	"fmt"
 )
 
 type Product struct {
@@ -72,13 +73,14 @@ func List(pageNum int, pageSize int, maps interface{}) (products []Product, coun
 }
 
 func SearchInTitle(pageNum int, pageSize int, data string)(products []Product, count int) {
-	models.DB.Debug().Where("`title` LIKE ?", data).Offset(pageNum).Limit(pageSize).Find(&products)
+	models.DB.Debug().Where("title LIKE ?", data).Offset(pageNum).Limit(pageSize).Find(&products)
 	models.DB.Debug().Model(Product{}).Where("`title` LIKE ?", data).Count(&count)
 	return
 }
 
 func SearchInTag(pageNum int, pageSize int, data string)(products []Product, count int) {
-	models.DB.Debug().Where("`tags` LIKE ?", data).Offset(pageNum).Limit(pageSize).Find(&products)
+	data = fmt.Sprintf("%%%s%%", data)
+	models.DB.Debug().Where("tags LIKE ?", data).Offset(pageNum).Limit(pageSize).Find(&products)
 	models.DB.Debug().Model(Product{}).Where("`tags` LIKE ?", data).Count(&count)
 	return
 }

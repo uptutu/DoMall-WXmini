@@ -37,6 +37,11 @@ func InitRouter() *gin.Engine {
 			userRoute.POST("/login", UserController.Login)
 			userRoute.GET("/index", jwt.JWT(), UserController.Show)
 			userRoute.PUT("/edit/:id", jwt.JWT(), UserController.Update)
+
+			// Favorites
+			userRoute.GET("/favorite", jwt.JWT(), UserController.FavoritesList)
+			userRoute.POST("/favorite", jwt.JWT(), UserController.FavoritesCreate)
+			userRoute.DELETE("/favorite", jwt.JWT(), UserController.FavoritesDestroy)
 		}
 
 		// Products
@@ -47,6 +52,8 @@ func InitRouter() *gin.Engine {
 			productRoute.GET("/info/:id", ProductController.Show)
 
 		}
+
+
 
 	}
 
@@ -67,6 +74,7 @@ func InitRouter() *gin.Engine {
 		}
 
 	}
+
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(404, gin.H{
 			"code":404,

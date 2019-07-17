@@ -4,6 +4,7 @@ import (
 	"do-mall/pkg/logging"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -16,9 +17,9 @@ var DB *gorm.DB
 type Model struct {
 	ID int `gorm:"primary_key" json:"id"`
 
-	//CreatedAt int `json:"created_at"`
-	//UpdatedAt int `json:"updated_at"`
-	//DeletedAt int `json:"deleted_at"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
 }
 
 func init() {

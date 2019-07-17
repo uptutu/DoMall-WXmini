@@ -160,7 +160,7 @@ func Update(c *gin.Context) {
 	data := make(map[string]interface{})
 
 	// 获取处理参数
-	id, err := com.StrTo(c.Param("user_id")).Int()
+	id, err := com.StrTo(c.Param("id")).Int()
 	if err != nil {
 		code = e.BAD_REQUEST
 		msg = "请求错误"
@@ -257,4 +257,16 @@ func Update(c *gin.Context) {
 		"msg":  msg,
 		"data": data,
 	})
+}
+
+func FavoritesList(c *gin.Context)  {
+
+}
+
+func FavoritesCreate(c *gin.Context)  {
+
+}
+
+func FavoritesDestroy(c *gin.Context) {
+
 }

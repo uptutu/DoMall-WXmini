@@ -41,7 +41,7 @@ func Login(user User) bool {
 
 func CreateByPasswd(user *User) bool {
 	if models.DB.NewRecord(user) {
-		models.DB.Create(user)
+		models.DB.Debug().Create(user)
 		return !models.DB.NewRecord(user)
 	}
 

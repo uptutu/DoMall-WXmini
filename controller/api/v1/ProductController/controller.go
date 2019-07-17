@@ -55,7 +55,7 @@ func Search(c *gin.Context) {
 		data["lists"], data["total"] = Product.SearchInTag(util.GetPage(c), setting.PageSize, tag)
 
 	} else if title := c.Query("title"); title != "" {
-		data["lists"], data["total"] = Product.SearchInTitle(util.GetPage(c), setting.PageSize, tag)
+		data["lists"], data["total"] = Product.SearchInTitle(util.GetPage(c), setting.PageSize, title)
 	}
 
 	if _, ok := data["lists"]; ok {
