@@ -50,6 +50,8 @@ func InitRouter() *gin.Engine {
 			productRoute.GET("/index", ProductController.Index)
 			productRoute.GET("/search", ProductController.Search)
 			productRoute.GET("/info/:id", ProductController.Show)
+			// Inventory
+			productRoute.GET("/:pid/inventory", ProductController.GetInventory)
 
 		}
 
@@ -71,6 +73,8 @@ func InitRouter() *gin.Engine {
 			adminProductRoute.POST("/", ProductController2.Create)
 			adminProductRoute.PUT("/:id", ProductController2.Update)
 			adminProductRoute.DELETE("/:id", ProductController2.Destroy)
+			// Inventory
+			adminProductRoute.PUT("/inventory/:pid", ProductController2.UpdateInventory)
 		}
 
 	}

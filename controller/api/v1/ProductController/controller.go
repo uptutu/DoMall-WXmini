@@ -93,3 +93,25 @@ func Show(c *gin.Context) {
 	})
 
 }
+
+func GetInventory(c *gin.Context) {
+	code := e.BAD_REQUEST
+	data := make(map[string]interface{})
+	var msg string
+
+	pid := com.StrTo(c.Param("pid")).MustInt()
+	inv := Product.GetInventory(pid)
+	if inv.PId != 0 {
+		data["inventory"] = inv
+		code = e.OK
+		msg = e.GetMsg(code)
+	} else {
+		msg = "无法获取相应产品库存"
+	}
+
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	})
+}

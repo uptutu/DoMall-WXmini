@@ -19,7 +19,7 @@ CREATE TABLE `users`
         COMMENT '写入时间',
     `updated_at`   timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '更新时间',
-    `deleted_at`   timestamp NULL COMMENT '删除时间',
+    `deleted_at`   timestamp      NULL COMMENT '删除时间',
     PRIMARY KEY (`id`),
     UNIQUE (`mobile`),
     KEY (`openid`),
@@ -52,7 +52,7 @@ CREATE TABLE `products`
         COMMENT '写入时间',
     `updated_at`    timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '更新时间',
-    `deleted_at`    timestamp NULL COMMENT '删除时间',
+    `deleted_at`    timestamp      NULL COMMENT '删除时间',
     PRIMARY KEY (`id`),
     KEY (`series`),
     KEY (`selling_price`),
@@ -64,12 +64,58 @@ CREATE TABLE `products`
   DEFAULT CHARSET = utf8 COMMENT ='商品表';
 
 
+-- 库存表
+DROP TABLE IF EXISTS `inventories`;
+CREATE TABLE `inventories`
+(
+    `p_id`       int(11)   NOT NULL DEFAULT 0 COMMENT '商品id',
+
+    `f`          int(8)    NOT NULL DEFAULT 0 COMMENT 'F',
+    `xxs`        int(8)    NOT NULL DEFAULT 0 COMMENT 'XXS',
+    `xs`         int(8)    NOT NULL DEFAULT 0 COMMENT 'XS',
+    `s`          int(8)    NOT NULL DEFAULT 0 COMMENT 'S',
+    `m`          int(8)    NOT NULL DEFAULT 0 COMMENT 'M',
+    `l`          int(8)    NOT NULL DEFAULT 0 COMMENT 'L',
+    `xl`         int(8)    NOT NULL DEFAULT 0 COMMENT 'XL',
+    `xxl`        int(8)    NOT NULL DEFAULT 0 COMMENT 'XXL',
+    `s_35`       int(8)    NOT NULL DEFAULT 0 COMMENT '35',
+    `s_36`       int(8)    NOT NULL DEFAULT 0 COMMENT '36',
+    `s_37`       int(8)    NOT NULL DEFAULT 0 COMMENT '37',
+    `s_38`       int(8)    NOT NULL DEFAULT 0 COMMENT '38',
+    `s_39`       int(8)    NOT NULL DEFAULT 0 COMMENT '39',
+    `s_40`       int(8)    NOT NULL DEFAULT 0 COMMENT '40',
+    `s_405`      int(8)    NOT NULL DEFAULT 0 COMMENT '40.5',
+    `s_41`       int(8)    NOT NULL DEFAULT 0 COMMENT '41',
+    `s_415`      int(8)    NOT NULL DEFAULT 0 COMMENT '41.5',
+    `s_42`       int(8)    NOT NULL DEFAULT 0 COMMENT '42',
+    `s_425`      int(8)    NOT NULL DEFAULT 0 COMMENT '42.5',
+    `s_43`       int(8)    NOT NULL DEFAULT 0 COMMENT '43',
+    `s_435`      int(8)    NOT NULL DEFAULT 0 COMMENT '43.5',
+    `s_44`       int(8)    NOT NULL DEFAULT 0 COMMENT '44',
+    `s_445`      int(8)    NOT NULL DEFAULT 0 COMMENT '44.5',
+    `s_45`       int(8)    NOT NULL DEFAULT 0 COMMENT '45',
+    `s_46`       int(8)    NOT NULL DEFAULT 0 COMMENT '46',
+    `s_47`       int(8)    NOT NULL DEFAULT 0 COMMENT '47',
+
+
+    `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '写入时间',
+    `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '更新时间',
+    `deleted_at` timestamp NULL COMMENT '删除时间',
+
+    CONSTRAINT p_id_fk FOREIGN KEY (p_id) REFERENCES products (id)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = utf8 COMMENT ='库存表';
+
+
 -- 收藏表
 DROP TABLE IF EXISTS `favorites`;
 CREATE TABLE `favorites`
 (
-    `user_id`    char(32)  NOT NULL DEFAULT '' COMMENT '用户id',
-    `p_id`       int(11)   NOT NULL DEFAULT 0 COMMENT '商品主键',
+    `user_id`    int(11)   NOT NULL COMMENT '用户id',
+    `p_id`       int(11)   NOT NULL COMMENT '商品主键',
 
     `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '加入时间',
@@ -153,7 +199,7 @@ CREATE TABLE `orders`
         COMMENT '结算时间',
     `pushed_at`     timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '推送时间',
-    `deleted_at`    timestamp NULL COMMENT '完成时间',
+    `deleted_at`    timestamp  NULL COMMENT '完成时间',
     PRIMARY KEY (`id`),
     KEY (`user_id`),
     KEY (`status`)
@@ -177,7 +223,7 @@ CREATE TABLE `admins`
         COMMENT '写入时间',
     `updated_at` timestamp    NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '更新时间',
-    `deleted_at` timestamp NULL COMMENT '删除时间',
+    `deleted_at` timestamp    NULL COMMENT '删除时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
