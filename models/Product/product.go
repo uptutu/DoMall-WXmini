@@ -4,6 +4,7 @@ import (
 	"do-mall/models"
 	"do-mall/pkg/logging"
 	"fmt"
+	"reflect"
 	"time"
 )
 
@@ -35,24 +36,24 @@ type Inventory struct {
 	L         int        `json:"l"`
 	Xl        int        `json:"xl"`
 	Xxl       int        `json:"xxl"`
-	S35       int        `json:"s_35"`
-	S36       int        `json:"s_36"`
-	S37       int        `json:"s_37"`
-	S38       int        `json:"s_38"`
-	S39       int        `json:"s_39"`
-	S40       int        `json:"s_40"`
-	S405      int        `json:"s_405"`
-	S41       int        `json:"s_41"`
-	S415      int        `json:"s_415"`
-	S42       int        `json:"s_42"`
-	S425      int        `json:"s_425"`
-	S43       int        `json:"s_43"`
-	S435      int        `json:"s_435"`
-	S44       int        `json:"s_44"`
-	S445      int        `json:"s_445"`
-	S45       int        `json:"s_45"`
-	S46       int        `json:"s_46"`
-	S47       int        `json:"s_47"`
+	S35       int        `json:"s35"`
+	S36       int        `json:"s36"`
+	S37       int        `json:"s37"`
+	S38       int        `json:"s38"`
+	S39       int        `json:"s39"`
+	S40       int        `json:"s40"`
+	S405      int        `json:"s405"`
+	S41       int        `json:"s41"`
+	S415      int        `json:"s415"`
+	S42       int        `json:"s42"`
+	S425      int        `json:"s425"`
+	S43       int        `json:"s43"`
+	S435      int        `json:"s435"`
+	S44       int        `json:"s44"`
+	S445      int        `json:"s445"`
+	S45       int        `json:"s45"`
+	S46       int        `json:"s46"`
+	S47       int        `json:"s47"`
 	CreatedAt time.Time  `json:"created_at"`
 	UpdatedAt time.Time  `json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at"`
@@ -70,7 +71,7 @@ func Create(product *Product) bool {
 	if models.DB.NewRecord(product) {
 		models.DB.Create(product)
 		if !models.DB.NewRecord(product) {
-			inv := Inventory{}
+			inv := Inventory{PId:product.ID,CreatedAt:time.Now()}
 			if err := models.DB.Debug().Create(inv).Error; err != nil {
 				logging.Info(err)
 				return false
@@ -138,6 +139,25 @@ func UpdateInventory(pId int, data *Inventory) bool {
 	inventory := GetInventory(pId)
 	if err := models.DB.Debug().Model(inventory).Update(*data).Error; err != nil {
 		logging.Info(err)
+		return false
+	}
+	sum := 0
+	inventory = GetInventory(pId)
+	t := reflect.TypeOf(inventory)
+	v := reflect.ValueOf(inventory)
+	for k := 0; k < t.NumField(); k++ {
+		 if t.Field(k).Name == "PId" ||
+			 t.Field(k).Name == "CreatedAt" ||
+			 t.Field(k).Name == "UpdatedAt" ||
+			 t.Field(k).Name == "DeletedAt" {
+		 	continue
+		 }
+		 sum += v.Field(k).Interface().(int)
+	}
+	product := Product{}
+	product.ID = pId
+	product.Inventory = sum
+	if !Update(&product) {
 		return false
 	}
 	return true

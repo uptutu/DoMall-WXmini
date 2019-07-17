@@ -51,7 +51,7 @@ func InitRouter() *gin.Engine {
 			productRoute.GET("/search", ProductController.Search)
 			productRoute.GET("/info/:id", ProductController.Show)
 			// Inventory
-			productRoute.GET("/:pid/inventory", ProductController.GetInventory)
+			productRoute.GET("/inventory/:pid", ProductController.GetInventory)
 
 		}
 
@@ -74,7 +74,7 @@ func InitRouter() *gin.Engine {
 			adminProductRoute.PUT("/:id", ProductController2.Update)
 			adminProductRoute.DELETE("/:id", ProductController2.Destroy)
 			// Inventory
-			adminProductRoute.PUT("/inventory/:pid", ProductController2.UpdateInventory)
+			adminProductRoute.PUT("/:id/inventory", ProductController2.UpdateInventory)
 		}
 
 	}

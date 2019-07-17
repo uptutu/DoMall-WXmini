@@ -78,24 +78,24 @@ CREATE TABLE `inventories`
     `l`          int(8)    NOT NULL DEFAULT 0 COMMENT 'L',
     `xl`         int(8)    NOT NULL DEFAULT 0 COMMENT 'XL',
     `xxl`        int(8)    NOT NULL DEFAULT 0 COMMENT 'XXL',
-    `s_35`       int(8)    NOT NULL DEFAULT 0 COMMENT '35',
-    `s_36`       int(8)    NOT NULL DEFAULT 0 COMMENT '36',
-    `s_37`       int(8)    NOT NULL DEFAULT 0 COMMENT '37',
-    `s_38`       int(8)    NOT NULL DEFAULT 0 COMMENT '38',
-    `s_39`       int(8)    NOT NULL DEFAULT 0 COMMENT '39',
-    `s_40`       int(8)    NOT NULL DEFAULT 0 COMMENT '40',
-    `s_405`      int(8)    NOT NULL DEFAULT 0 COMMENT '40.5',
-    `s_41`       int(8)    NOT NULL DEFAULT 0 COMMENT '41',
-    `s_415`      int(8)    NOT NULL DEFAULT 0 COMMENT '41.5',
-    `s_42`       int(8)    NOT NULL DEFAULT 0 COMMENT '42',
-    `s_425`      int(8)    NOT NULL DEFAULT 0 COMMENT '42.5',
-    `s_43`       int(8)    NOT NULL DEFAULT 0 COMMENT '43',
-    `s_435`      int(8)    NOT NULL DEFAULT 0 COMMENT '43.5',
-    `s_44`       int(8)    NOT NULL DEFAULT 0 COMMENT '44',
-    `s_445`      int(8)    NOT NULL DEFAULT 0 COMMENT '44.5',
-    `s_45`       int(8)    NOT NULL DEFAULT 0 COMMENT '45',
-    `s_46`       int(8)    NOT NULL DEFAULT 0 COMMENT '46',
-    `s_47`       int(8)    NOT NULL DEFAULT 0 COMMENT '47',
+    `s35`       int(8)    NOT NULL DEFAULT 0 COMMENT '35',
+    `s36`       int(8)    NOT NULL DEFAULT 0 COMMENT '36',
+    `s37`       int(8)    NOT NULL DEFAULT 0 COMMENT '37',
+    `s38`       int(8)    NOT NULL DEFAULT 0 COMMENT '38',
+    `s39`       int(8)    NOT NULL DEFAULT 0 COMMENT '39',
+    `s40`       int(8)    NOT NULL DEFAULT 0 COMMENT '40',
+    `s405`      int(8)    NOT NULL DEFAULT 0 COMMENT '40.5',
+    `s41`       int(8)    NOT NULL DEFAULT 0 COMMENT '41',
+    `s415`      int(8)    NOT NULL DEFAULT 0 COMMENT '41.5',
+    `s42`       int(8)    NOT NULL DEFAULT 0 COMMENT '42',
+    `s425`      int(8)    NOT NULL DEFAULT 0 COMMENT '42.5',
+    `s43`       int(8)    NOT NULL DEFAULT 0 COMMENT '43',
+    `s435`      int(8)    NOT NULL DEFAULT 0 COMMENT '43.5',
+    `s44`       int(8)    NOT NULL DEFAULT 0 COMMENT '44',
+    `s445`      int(8)    NOT NULL DEFAULT 0 COMMENT '44.5',
+    `s45`       int(8)    NOT NULL DEFAULT 0 COMMENT '45',
+    `s46`       int(8)    NOT NULL DEFAULT 0 COMMENT '46',
+    `s47`       int(8)    NOT NULL DEFAULT 0 COMMENT '47',
 
 
     `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
@@ -104,7 +104,7 @@ CREATE TABLE `inventories`
         COMMENT '更新时间',
     `deleted_at` timestamp NULL COMMENT '删除时间',
 
-    CONSTRAINT p_id_fk FOREIGN KEY (p_id) REFERENCES products (id)
+    CONSTRAINT p2i_id_fk FOREIGN KEY (p_id) REFERENCES products (id)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='库存表';
