@@ -15,7 +15,8 @@ type Cart struct {
 	Number int `json:"number"`
 	Status int `json:"status"`
 
-	CreatedAt time.Time `json:"created_at"`
+	CreatedAt time.Time  `json:"created_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
 }
 
 func (Cart) TableName() string {
@@ -37,7 +38,7 @@ func PutInCart(userId, pId int) bool {
 
 func DropFromCart(cId int) bool {
 	cart := Cart{ID: cId}
-	if err := models.DB.Debug().Unscoped().Delete(&cart, "id = ?", cart.ID).Error; err != nil {
+	if err := models.DB.Debug().Delete(&cart, "id = ?", cart.ID).Error; err != nil {
 		logging.Info(err)
 		return false
 	}

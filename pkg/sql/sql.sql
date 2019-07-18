@@ -159,6 +159,8 @@ CREATE TABLE `carts`
     `number`     int(4)     NOT NULL DEFAULT 0 COMMENT '数量',
     `status`     tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0-未生成订单 1-已生成订单',
     `created_at` timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '加入时间',
+    `updated_at` timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '加入时间',
+    `deleted_at` timestamp  NULL COMMENT '删除时间',
     PRIMARY KEY (`id`),
     UNIQUE (`p_id`),
     KEY (`user_id`),
