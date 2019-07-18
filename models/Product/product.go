@@ -169,7 +169,7 @@ func GetInventory(pId int) (inventory Inventory) {
 }
 
 func DestroyInventory(pid int) bool {
-	if err := models.DB.Debug().Delete(Inventory{}, "id = ?", pid).Error; err != nil {
+	if err := models.DB.Debug().Delete(Inventory{}, "p_id = ?", pid).Error; err != nil {
 		logging.Info(err)
 		return false
 	}

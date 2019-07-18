@@ -6,6 +6,7 @@ import (
 	"do-mall/models/User"
 	"do-mall/pkg/e"
 	"do-mall/pkg/logging"
+	"do-mall/pkg/setting"
 	"do-mall/pkg/util"
 	"fmt"
 	"github.com/Unknwon/com"
@@ -86,7 +87,10 @@ func Create(c *gin.Context) {
 
 func Show(c *gin.Context) {
 	code := e.OK
-	data := c.MustGet("AuthData").(*util.Claims)
+	data := make(map[string]interface{})
+	userId := c.MustGet("AuthData").(*util.Claims).User.ID
+	data["user"] = User.GetInfo(userId)
+
 	c.JSON(code, gin.H{
 		"code": code,
 		"msg":  e.GetMsg(code),
@@ -159,30 +163,7 @@ func Update(c *gin.Context) {
 	code := e.INTERNAL_SERVER_ERROR
 	data := make(map[string]interface{})
 
-	// 获取处理参数
-	id, err := com.StrTo(c.Param("id")).Int()
-	if err != nil {
-		code = e.BAD_REQUEST
-		msg = "请求错误"
-		c.JSON(code, gin.H{
-			"code": code,
-			"msg":  msg,
-			"data": data,
-		})
-		c.Abort()
-		return
-	}
-	authUser := c.MustGet("AuthData").(*util.Claims).User
-	if authUser.ID != id {
-		code = e.UNAUTHORIZED
-		c.JSON(code, gin.H{
-			"code": code,
-			"msg":  e.GetMsg(code),
-			"data": data,
-		})
-		c.Abort()
-		return
-	}
+	userId := c.MustGet("AuthData").(*util.Claims).User.ID
 	nickname := c.PostForm("nickname")
 	avatar := c.PostForm("avatar")
 	sex := c.PostForm("sex")
@@ -223,8 +204,6 @@ func Update(c *gin.Context) {
 		}
 	}
 
-	valid.Required(id, "id").Message("请指定id")
-
 	if valid.HasErrors() {
 		code = e.BAD_REQUEST
 		errorData := make(map[string]interface{})
@@ -241,7 +220,7 @@ func Update(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	user := User.GetInfo(authUser.ID)
+	user := User.GetInfo(userId)
 
 	// 更新数据
 	if User.Update(&user, editedData) {
@@ -259,14 +238,94 @@ func Update(c *gin.Context) {
 	})
 }
 
-func FavoritesList(c *gin.Context)  {
+func FavoritesList(c *gin.Context) {
+	code := e.BAD_REQUEST
+	data := make(map[string]interface{})
+	var msg string
+	userId := c.MustGet("AuthData").(*util.Claims).User.ID
 
+	data["lists"], data["total"] = User.ShowFavorites(util.GetPage(c), setting.PageSize, userId)
+	if _, ok := data["lists"]; ok {
+		code = e.OK
+	}
+	msg = e.GetMsg(code)
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	})
 }
 
-func FavoritesCreate(c *gin.Context)  {
+func FavoritesCreate(c *gin.Context) {
+	code := e.BAD_REQUEST
+	data := make(map[string]interface{})
+	var msg string
+	userId := c.MustGet("AuthData").(*util.Claims).User.ID
+	valid := validation.Validation{}
 
+	valid.Required(c.PostForm("pId"), "pId").Message("pId 必须")
+	valid.Numeric(c.PostForm("pId"), "pId").Message("pId 必须是有效数值")
+
+	if valid.HasErrors() {
+		code = e.BAD_REQUEST
+		errorData := make(map[string]interface{})
+		for index, err := range valid.Errors {
+			logging.Info(err.Key, err.Message)
+			errorData[strconv.Itoa(index)] = map[string]interface{}{err.Key: err.Message}
+		}
+		data["error"] = errorData
+	}
+
+	if _, ok := data["error"]; !ok {
+		pId := com.StrTo(c.PostForm("pId")).MustInt()
+		if User.AddFavorite(userId, pId) {
+			code = e.NO_CONTENT
+		}
+	} else {
+		code = e.INTERNAL_SERVER_ERROR
+	}
+
+	msg = e.GetMsg(code)
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	})
 }
 
 func FavoritesDestroy(c *gin.Context) {
+	code := e.BAD_REQUEST
+	data := make(map[string]interface{})
+	var msg string
+	userId := c.MustGet("AuthData").(*util.Claims).User.ID
+	valid := validation.Validation{}
 
+	valid.Required(c.Param("id"), "pId").Message("pId 参数值必须")
+	valid.Numeric(c.Param("id"), "pId").Message("pId 必须是有效数值")
+
+	if valid.HasErrors() {
+		code = e.BAD_REQUEST
+		errorData := make(map[string]interface{})
+		for index, err := range valid.Errors {
+			logging.Info(err.Key, err.Message)
+			errorData[strconv.Itoa(index)] = map[string]interface{}{err.Key: err.Message}
+		}
+		data["error"] = errorData
+	}
+
+	if _, ok := data["error"]; !ok {
+		pId := com.StrTo(c.Param("id")).MustInt()
+		if User.DestroyFavorite(userId, pId) {
+			code = e.NO_CONTENT
+		}
+	} else {
+		code = e.INTERNAL_SERVER_ERROR
+	}
+
+	msg = e.GetMsg(code)
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	})
 }

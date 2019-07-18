@@ -36,12 +36,12 @@ func InitRouter() *gin.Engine {
 			userRoute.POST("/register", UserController.Create)
 			userRoute.POST("/login", UserController.Login)
 			userRoute.GET("/index", jwt.JWT(), UserController.Show)
-			userRoute.PUT("/edit/:id", jwt.JWT(), UserController.Update)
+			userRoute.PUT("/edit", jwt.JWT(), UserController.Update)
 
 			// Favorites
 			userRoute.GET("/favorite", jwt.JWT(), UserController.FavoritesList)
 			userRoute.POST("/favorite", jwt.JWT(), UserController.FavoritesCreate)
-			userRoute.DELETE("/favorite", jwt.JWT(), UserController.FavoritesDestroy)
+			userRoute.DELETE("/favorite/product/:id", jwt.JWT(), UserController.FavoritesDestroy)
 		}
 
 		// Products
