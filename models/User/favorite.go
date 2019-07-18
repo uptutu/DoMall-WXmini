@@ -26,7 +26,7 @@ func AddFavorite(userId, pId int) bool {
 		}
 	}
 	fav := Favorite{UserID: userId, PId: pId, CreatedAt:time.Now()}
-	if err := models.DB.Debug().Create(fav).Error; err != nil {
+	if err := models.DB.Debug().Create(&fav).Error; err != nil {
 		logging.Info(err)
 		return false
 	}
