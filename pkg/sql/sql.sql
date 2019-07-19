@@ -132,14 +132,14 @@ CREATE TABLE `addresses`
 (
     `id`       int(11)    NOT NULL AUTO_INCREMENT COMMENT '主键',
     `user_id`  char(32)   NOT NULL DEFAULT '' COMMENT '用户id',
-    `title`    char(20)   NOT NULL DEFAULT '' COMMENT '标题',
-    `province` char(40)   NOT NULL DEFAULT '' COMMENT '省份',
-    `city`     char(40)   NOT NULL DEFAULT '' COMMENT '城市',
-    `area`     char(40)   NOT NULL DEFAULT '' COMMENT '区县',
-    `street`   char(200)  NOT NULL DEFAULT '' COMMENT '详细地址',
-    `zip`      char(6)    NOT NULL DEFAULT '' COMMENT '邮编',
-    `contact`  char(40)   NOT NULL DEFAULT '' COMMENT '联系人',
-    `mobile`   char(18)   NOT NULL DEFAULT '' COMMENT '联系电话',
+    `provinceName` char(40)   NOT NULL DEFAULT '' COMMENT '国标收货地址第一级地址',
+    `cityName`     char(40)   NOT NULL DEFAULT '' COMMENT '国标收货地址第二级地址',
+    `countyName`     char(40)   NOT NULL DEFAULT '' COMMENT '国标收货地址第三级地址',
+    `detailInfo`   char(200)  NOT NULL DEFAULT '' COMMENT '详细收货地址信息',
+    `postalCode`      char(6)    NOT NULL DEFAULT '' COMMENT '邮编',
+    `nationalCode`      char(6)    NOT NULL DEFAULT '' COMMENT '收货地址国家码',
+    `userName`  char(40)   NOT NULL DEFAULT '' COMMENT '收货人姓名',
+    `telNumber`   char(18)   NOT NULL DEFAULT '' COMMENT '收货人手机号码',
     `default`  tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否默认,0-否 1-是',
     PRIMARY KEY (`id`),
     KEY (`user_id`)
@@ -175,34 +175,34 @@ CREATE TABLE `carts`
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders`
 (
-    `id`            int(11)    NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`            int(11)        NOT NULL AUTO_INCREMENT COMMENT '主键',
 --
-    `user_id`       int(11)    NOT NULL DEFAULT 0 COMMENT '用户id',
+    `user_id`       int(11)        NOT NULL DEFAULT 0 COMMENT '用户id',
 -- 收获地址
-    `province`      char(40)   NOT NULL DEFAULT '' COMMENT '省份',
-    `city`          char(40)   NOT NULL DEFAULT '' COMMENT '城市',
-    `area`          char(40)   NOT NULL DEFAULT '' COMMENT '区县',
-    `street`        char(200)  NOT NULL DEFAULT '' COMMENT '详细地址',
-    `zip`           char(6)    NOT NULL DEFAULT '' COMMENT '邮编',
-    `contact`       char(40)   NOT NULL DEFAULT '' COMMENT '联系人',
-    `mobile`        char(18)   NOT NULL DEFAULT '' COMMENT '联系电话',
+    `provinceName`      char(40)       NOT NULL DEFAULT '' COMMENT '省份',
+    `cityName`          char(40)       NOT NULL DEFAULT '' COMMENT '城市',
+    `countyName`          char(40)       NOT NULL DEFAULT '' COMMENT '区县',
+    `detailInfo`        char(200)      NOT NULL DEFAULT '' COMMENT '详细地址',
+    `postalCode`           char(6)        NOT NULL DEFAULT '' COMMENT '邮编',
+    `userName`       char(40)       NOT NULL DEFAULT '' COMMENT '收货人姓名',
+    `telNumber`        char(18)       NOT NULL DEFAULT '' COMMENT '联系电话',
 -- 物流信息
-    `express_title` char(40)   NOT NULL DEFAULT '' COMMENT '物流公司',
-    `express_code`  char(20)   NOT NULL DEFAULT '' COMMENT '物流编号',
-    `express_no`    char(40)   NOT NULL DEFAULT '' COMMENT '物流单号',
-    `express_time`  timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00'
+    `express_title` char(40)       NOT NULL DEFAULT '' COMMENT '物流公司',
+    `express_code`  char(20)       NOT NULL DEFAULT '' COMMENT '物流编号',
+    `express_no`    char(40)       NOT NULL DEFAULT '' COMMENT '物流单号',
+    `express_time`  timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '发货时间',
 -- 订单信息
-    `total`         int(8)     NOT NULL DEFAULT 0 COMMENT '汇总积分',
-    `pay_integral`  int(8)     NOT NULL DEFAULT 0 COMMENT '结算积分',
-    `status`        tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0-未结算 1-已结算(待发货) 2-已发货(待收货) 3-已完成 9-异常',
-    `created_at`    timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00'
+    `total`         decimal(12, 2) NOT NULL DEFAULT 0 COMMENT '汇总金额',
+    `sum_pay`       decimal(12, 2) NOT NULL DEFAULT 0 COMMENT '结算金额',
+    `status`        tinyint(1)     NOT NULL DEFAULT 0 COMMENT '状态,0-未结算 1-已结算(待发货) 2-已发货(待收货) 3-已完成 9-异常',
+    `created_at`    timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '创建时间',
-    `updated_at`    timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00'
+    `updated_at`    timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '结算时间',
-    `pushed_at`     timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00'
+    `pushed_at`     timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '推送时间',
-    `deleted_at`    timestamp  NULL COMMENT '完成时间',
+    `deleted_at`    timestamp      NULL COMMENT '完成时间',
     PRIMARY KEY (`id`),
     KEY (`user_id`),
     KEY (`status`)

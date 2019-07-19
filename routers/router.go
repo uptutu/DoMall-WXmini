@@ -3,6 +3,7 @@ package routers
 import (
 	"do-mall/controller/api/admin/AdminController"
 	ProductController2 "do-mall/controller/api/admin/ProductController"
+	"do-mall/controller/api/v1/AddressController"
 	"do-mall/controller/api/v1/CartController"
 	"do-mall/controller/api/v1/ProductController"
 	"do-mall/controller/api/v1/UserController"
@@ -48,6 +49,12 @@ func InitRouter() *gin.Engine {
 			userRoute.POST("/shoppingCart", jwt.JWT(), CartController.Create)
 			userRoute.DELETE("/shoppingCart/:id", jwt.JWT(), CartController.Destroy)
 			userRoute.DELETE("/shoppingCart/:id/number", jwt.JWT(), CartController.Decrease)
+
+			// Addresses
+			userRoute.GET("/address", jwt.JWT(), AddressController.Index)
+			userRoute.POST("/address", jwt.JWT(), AddressController.Create)
+			userRoute.DELETE("/address/:id", jwt.JWT(), AddressController.Destroy)
+			userRoute.PUT("/address/:id", jwt.JWT(), AddressController.SetDefault)
 
 			// Order
 

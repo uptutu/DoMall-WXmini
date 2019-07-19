@@ -280,9 +280,9 @@ func FavoritesCreate(c *gin.Context) {
 		pId := com.StrTo(c.PostForm("pId")).MustInt()
 		if User.AddFavorite(userId, pId) {
 			code = e.NO_CONTENT
+		} else {
+			code = e.INTERNAL_SERVER_ERROR
 		}
-	} else {
-		code = e.INTERNAL_SERVER_ERROR
 	}
 
 	msg = e.GetMsg(code)
@@ -317,9 +317,9 @@ func FavoritesDestroy(c *gin.Context) {
 		pId := com.StrTo(c.Param("id")).MustInt()
 		if User.DestroyFavorite(userId, pId) {
 			code = e.NO_CONTENT
+		} else {
+			code = e.INTERNAL_SERVER_ERROR
 		}
-	} else {
-		code = e.INTERNAL_SERVER_ERROR
 	}
 
 	msg = e.GetMsg(code)
