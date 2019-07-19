@@ -130,17 +130,17 @@ CREATE TABLE `favorites`
 DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE `addresses`
 (
-    `id`       int(11)    NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `user_id`  char(32)   NOT NULL DEFAULT '' COMMENT '用户id',
-    `provinceName` char(40)   NOT NULL DEFAULT '' COMMENT '国标收货地址第一级地址',
-    `cityName`     char(40)   NOT NULL DEFAULT '' COMMENT '国标收货地址第二级地址',
-    `countyName`     char(40)   NOT NULL DEFAULT '' COMMENT '国标收货地址第三级地址',
-    `detailInfo`   char(200)  NOT NULL DEFAULT '' COMMENT '详细收货地址信息',
-    `postalCode`      char(6)    NOT NULL DEFAULT '' COMMENT '邮编',
-    `nationalCode`      char(6)    NOT NULL DEFAULT '' COMMENT '收货地址国家码',
-    `userName`  char(40)   NOT NULL DEFAULT '' COMMENT '收货人姓名',
-    `telNumber`   char(18)   NOT NULL DEFAULT '' COMMENT '收货人手机号码',
-    `default`  tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否默认,0-否 1-是',
+    `id`            int(11)    NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `user_id`       char(32)   NOT NULL DEFAULT '' COMMENT '用户id',
+    `province_name` char(40)   NOT NULL DEFAULT '' COMMENT '国标收货地址第一级地址',
+    `city_name`     char(40)   NOT NULL DEFAULT '' COMMENT '国标收货地址第二级地址',
+    `county_name`   char(40)   NOT NULL DEFAULT '' COMMENT '国标收货地址第三级地址',
+    `detail_info`   char(200)  NOT NULL DEFAULT '' COMMENT '详细收货地址信息',
+    `postal_code`   char(6)    NOT NULL DEFAULT '' COMMENT '邮编',
+    `national_code` char(6)    NOT NULL DEFAULT '' COMMENT '收货地址国家码',
+    `user_name`     char(40)   NOT NULL DEFAULT '' COMMENT '收货人姓名',
+    `tel_number`    char(18)   NOT NULL DEFAULT '' COMMENT '收货人手机号码',
+    `default`       tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否默认,0-否 1-是',
     PRIMARY KEY (`id`),
     KEY (`user_id`)
 ) ENGINE = InnoDB
@@ -179,13 +179,13 @@ CREATE TABLE `orders`
 --
     `user_id`       int(11)        NOT NULL DEFAULT 0 COMMENT '用户id',
 -- 收获地址
-    `provinceName`      char(40)       NOT NULL DEFAULT '' COMMENT '省份',
-    `cityName`          char(40)       NOT NULL DEFAULT '' COMMENT '城市',
-    `countyName`          char(40)       NOT NULL DEFAULT '' COMMENT '区县',
-    `detailInfo`        char(200)      NOT NULL DEFAULT '' COMMENT '详细地址',
-    `postalCode`           char(6)        NOT NULL DEFAULT '' COMMENT '邮编',
-    `userName`       char(40)       NOT NULL DEFAULT '' COMMENT '收货人姓名',
-    `telNumber`        char(18)       NOT NULL DEFAULT '' COMMENT '联系电话',
+    `provinceName`  char(40)       NOT NULL DEFAULT '' COMMENT '省份',
+    `cityName`      char(40)       NOT NULL DEFAULT '' COMMENT '城市',
+    `countyName`    char(40)       NOT NULL DEFAULT '' COMMENT '区县',
+    `detailInfo`    char(200)      NOT NULL DEFAULT '' COMMENT '详细地址',
+    `postalCode`    char(6)        NOT NULL DEFAULT '' COMMENT '邮编',
+    `userName`      char(40)       NOT NULL DEFAULT '' COMMENT '收货人姓名',
+    `telNumber`     char(18)       NOT NULL DEFAULT '' COMMENT '联系电话',
 -- 物流信息
     `express_title` char(40)       NOT NULL DEFAULT '' COMMENT '物流公司',
     `express_code`  char(20)       NOT NULL DEFAULT '' COMMENT '物流编号',

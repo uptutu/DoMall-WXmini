@@ -68,3 +68,11 @@ func SetAllAddressNotDefault(userId int) bool {
 	}
 	return true
 }
+
+func UpdateAddress(id int, address *Address) bool {
+	if err := models.DB.Debug().Model(Address{}).Where("id = ?", id).Update(*address).Error; err != nil {
+		logging.Info(err)
+		return false
+	}
+	return true
+}

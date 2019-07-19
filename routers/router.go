@@ -54,7 +54,8 @@ func InitRouter() *gin.Engine {
 			userRoute.GET("/address", jwt.JWT(), AddressController.Index)
 			userRoute.POST("/address", jwt.JWT(), AddressController.Create)
 			userRoute.DELETE("/address/:id", jwt.JWT(), AddressController.Destroy)
-			userRoute.PUT("/address/:id", jwt.JWT(), AddressController.SetDefault)
+			userRoute.PUT("/address/:id/default", jwt.JWT(), AddressController.SetDefault)
+			userRoute.PUT("/address/:id", jwt.JWT(), AddressController.Update)
 
 			// Order
 
