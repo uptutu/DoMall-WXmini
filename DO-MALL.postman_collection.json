@@ -6,11 +6,663 @@
 	},
 	"item": [
 		{
-			"name": "FrontEnd",
+			"name": "Client",
 			"item": [
 				{
 					"name": "User",
 					"item": [
+						{
+							"name": "Favorite",
+							"item": [
+								{
+									"name": "List",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjozLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xOFQxMDoyNDoxMCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE4VDEwOjI0OjEwKzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUxIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzQyNzQ1MCwiaXNzIjoiZ2luLWluaXQifQ.HI0bN8DDs0Tkp9T-rBhY8vp_sCI98_jx-0tGDaZRn8k",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/favorite",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"favorite"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjozLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xOFQxMDoyNDoxMCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE4VDEwOjI0OjEwKzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUxIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzQyNzQ1MCwiaXNzIjoiZ2luLWluaXQifQ.HI0bN8DDs0Tkp9T-rBhY8vp_sCI98_jx-0tGDaZRn8k",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/x-www-form-urlencoded",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "pId",
+													"value": "2",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/favorite",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"favorite"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjozLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xOFQxMDoyNDoxMCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE4VDEwOjI0OjEwKzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUxIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzQyNzQ1MCwiaXNzIjoiZ2luLWluaXQifQ.HI0bN8DDs0Tkp9T-rBhY8vp_sCI98_jx-0tGDaZRn8k",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/x-www-form-urlencoded",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": []
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/favorite/product/:id",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"favorite",
+												"product",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "bearer",
+								"bearer": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJ1cGRhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJkZWxldGVkX2F0IjpudWxsLCJuaWNrbmFtZSI6IkFkbWluIiwiYXZhdGFyIjoieHh4eHh4IiwidXNlcm5hbWUiOiJhZG1pbiJ9LCJleHAiOjE1NjMzNDMxOTAsImlzcyI6Imdpbi1pbml0In0.46uz6N-ARdRUK9WlgjYJx_Pe45NnIARRd-l4Au9AqgA",
+										"type": "string"
+									}
+								]
+							},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Shopping Cart",
+							"item": [
+								{
+									"name": "Get List",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xN1QxNzoxMjoxNCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE3VDE3OjEyOjE0KzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUwIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzQ0NjE5MCwiaXNzIjoiZ2luLWluaXQifQ.CfQ-Aj8ouDlx_w9fYAN55cLjzBgEuXmJjNy0Xpzvyn4",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/shoppingCart",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"shoppingCart"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add to Cart",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xN1QxNzoxMjoxNCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE3VDE3OjEyOjE0KzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUwIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzQ0NjE5MCwiaXNzIjoiZ2luLWluaXQifQ.CfQ-Aj8ouDlx_w9fYAN55cLjzBgEuXmJjNy0Xpzvyn4",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/x-www-form-urlencoded",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "pId",
+													"value": "2",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/shoppingCart",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"shoppingCart"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Decrease number",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xN1QxNzoxMjoxNCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE3VDE3OjEyOjE0KzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUwIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzQ0NjE5MCwiaXNzIjoiZ2luLWluaXQifQ.CfQ-Aj8ouDlx_w9fYAN55cLjzBgEuXmJjNy0Xpzvyn4",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/shoppingCart/:id/number",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"shoppingCart",
+												":id",
+												"number"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete cart record",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xN1QxNzoxMjoxNCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE3VDE3OjEyOjE0KzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUwIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzQ0NjE5MCwiaXNzIjoiZ2luLWluaXQifQ.CfQ-Aj8ouDlx_w9fYAN55cLjzBgEuXmJjNy0Xpzvyn4",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/shoppingCart/:id",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"shoppingCart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "bearer",
+								"bearer": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJ1cGRhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJkZWxldGVkX2F0IjpudWxsLCJuaWNrbmFtZSI6IkFkbWluIiwiYXZhdGFyIjoieHh4eHh4IiwidXNlcm5hbWUiOiJhZG1pbiJ9LCJleHAiOjE1NjMzNDMxOTAsImlzcyI6Imdpbi1pbml0In0.46uz6N-ARdRUK9WlgjYJx_Pe45NnIARRd-l4Au9AqgA",
+										"type": "string"
+									}
+								]
+							},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Address",
+							"item": [
+								{
+									"name": "Add",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xN1QxNzoxMjoxNCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE3VDE3OjEyOjE0KzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUwIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzUzNTk2MSwiaXNzIjoiZ2luLWluaXQifQ.PoD82-X5N8IOwU0T7MliIijYYtTmQcVGnbxEIxYRx7U",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/x-www-form-urlencoded",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "provinceName",
+													"value": "xxx",
+													"type": "text"
+												},
+												{
+													"key": "cityName",
+													"value": "xxxxxxx",
+													"type": "text"
+												},
+												{
+													"key": "countyName",
+													"value": "xxxxx",
+													"type": "text"
+												},
+												{
+													"key": "detailInfo",
+													"value": "xxxxxx",
+													"type": "text"
+												},
+												{
+													"key": "postalCode",
+													"value": "xxxxxx",
+													"type": "text"
+												},
+												{
+													"key": "nationalCode",
+													"value": "xxxxx",
+													"type": "text"
+												},
+												{
+													"key": "userName",
+													"value": "xxxxxx",
+													"type": "text"
+												},
+												{
+													"key": "telNumber",
+													"value": "15982437750",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/address",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"address"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xN1QxNzoxMjoxNCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE3VDE3OjEyOjE0KzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUwIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzUzNTk2MSwiaXNzIjoiZ2luLWluaXQifQ.PoD82-X5N8IOwU0T7MliIijYYtTmQcVGnbxEIxYRx7U",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/address",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"address"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Set address default",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xN1QxNzoxMjoxNCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE3VDE3OjEyOjE0KzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUwIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzUzNTk2MSwiaXNzIjoiZ2luLWluaXQifQ.PoD82-X5N8IOwU0T7MliIijYYtTmQcVGnbxEIxYRx7U",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/address/:id/default",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"address",
+												":id",
+												"default"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update ",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xN1QxNzoxMjoxNCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE3VDE3OjEyOjE0KzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUwIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzUzNTk2MSwiaXNzIjoiZ2luLWluaXQifQ.PoD82-X5N8IOwU0T7MliIijYYtTmQcVGnbxEIxYRx7U",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/x-www-form-urlencoded",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "provinceName",
+													"value": "YYY",
+													"type": "text"
+												},
+												{
+													"key": "cityName",
+													"value": "YYY",
+													"type": "text"
+												},
+												{
+													"key": "countyName",
+													"value": "YYYY",
+													"type": "text"
+												},
+												{
+													"key": "detailInfo",
+													"value": "xxxxxx",
+													"type": "text"
+												},
+												{
+													"key": "postalCode",
+													"value": "xxxxxx",
+													"type": "text"
+												},
+												{
+													"key": "nationalCode",
+													"value": "xxxxx",
+													"type": "text"
+												},
+												{
+													"key": "userName",
+													"value": "xxxxxx",
+													"type": "text"
+												},
+												{
+													"key": "telNumber",
+													"value": "13678152829",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/address/:id",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"address",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xN1QxNzoxMjoxNCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE3VDE3OjEyOjE0KzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUwIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzUzNTk2MSwiaXNzIjoiZ2luLWluaXQifQ.PoD82-X5N8IOwU0T7MliIijYYtTmQcVGnbxEIxYRx7U",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/user/address/:id",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"address",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
 						{
 							"name": "Register",
 							"request": {
@@ -66,7 +718,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjowLCJjcmVhdGVkX2F0IjowLCJ1cGRhdGVkX2F0IjowLCJkZWxldGVkX2F0IjowLCJuaWNrbmFtZSI6IiIsImF2YXRhciI6IiIsInNleCI6MCwibW9iaWxlIjoiIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MjkzNTM3OCwiaXNzIjoiZ2luLWluaXQifQ.mKULJqKiibAsz-XRcHsDIZj6KKsczPqEwloKopg_szs",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xN1QxNzoxMjoxNCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE3VDE3OjEyOjE0KzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUwIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzM2NTUzNCwiaXNzIjoiZ2luLWluaXQifQ.0sophzfEqUNcSoddO3AiHAsKZ0ZEL4U-wnUJddJY470",
 											"type": "string"
 										}
 									]
@@ -148,7 +800,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjowLCJ1cGRhdGVkX2F0IjowLCJuaWNrbmFtZSI6IiIsImF2YXRhciI6IiIsInNleCI6MCwibW9iaWxlIjoiMTU5ODI0Mzc3NTAiLCJpbnRyb2R1Y3Rpb24iOiIiLCJiYWxhbmNlIjowLCJjb2luIjowfSwiZXhwIjoxNTYzMDAyMTcyLCJpc3MiOiJnaW4taW5pdCJ9.0am9HEyVf8n0lUNpSf_N-JFoeYGefIk6NRgXD5ptgZA",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjozLCJjcmVhdGVkX2F0IjoiMjAxOS0wNy0xOFQxMDoyNDoxMCswODowMCIsInVwZGF0ZWRfYXQiOiIyMDE5LTA3LTE4VDEwOjI0OjEwKzA4OjAwIiwiZGVsZXRlZF9hdCI6bnVsbCwibmlja25hbWUiOiIiLCJhdmF0YXIiOiIiLCJzZXgiOjAsIm1vYmlsZSI6IjE1OTgyNDM3NzUxIiwiaW50cm9kdWN0aW9uIjoiIiwiYmFsYW5jZSI6MCwiY29pbiI6MH0sImV4cCI6MTU2MzQyNzQ1MCwiaXNzIjoiZ2luLWluaXQifQ.HI0bN8DDs0Tkp9T-rBhY8vp_sCI98_jx-0tGDaZRn8k",
 											"type": "string"
 										}
 									]
@@ -167,32 +819,28 @@
 									"urlencoded": [
 										{
 											"key": "nickname",
-											"value": "username",
-											"type": "text",
-											"disabled": true
+											"value": "Yattao",
+											"type": "text"
 										},
 										{
 											"key": "introduction",
-											"value": "xxxxxxxxxxxxxxxxxxxxxx",
-											"type": "text",
-											"disabled": true
+											"value": "XXX- -XXX",
+											"type": "text"
 										},
 										{
 											"key": "sex",
 											"value": "1",
-											"type": "text",
-											"disabled": true
+											"type": "text"
 										},
 										{
 											"key": "avatar",
 											"value": "http://qq.com/dasdasdsad_Dasd-sd-as-dasdasd",
-											"type": "text",
-											"disabled": true
+											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "http://127.0.0.1:8000/api/v1/user/1",
+									"raw": "http://127.0.0.1:8000/api/v1/user/edit",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -205,7 +853,7 @@
 										"api",
 										"v1",
 										"user",
-										"1"
+										"edit"
 									]
 								}
 							},
@@ -215,15 +863,53 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Brands",
+					"name": "Products",
 					"item": [
 						{
-							"name": "Brands List",
+							"name": "Inventory",
+							"item": [
+								{
+									"name": "Inventory",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:8000/api/v1/product/inventory/:pid",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"v1",
+												"product",
+												"inventory",
+												":pid"
+											],
+											"variable": [
+												{
+													"key": "pid",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "List",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1:8000/api/v1/brand/index",
+									"raw": "http://127.0.0.1:8000/api/v1/product/index",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -235,8 +921,76 @@
 									"path": [
 										"api",
 										"v1",
-										"brand",
+										"product",
 										"index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/product/info/:id",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"info",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/product/search?tag=HH",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"search"
+									],
+									"query": [
+										{
+											"key": "tag",
+											"value": "HH"
+										},
+										{
+											"key": "title",
+											"value": "xxx",
+											"disabled": true
+										}
 									]
 								}
 							},
@@ -244,16 +998,11 @@
 						}
 					],
 					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Products",
-					"item": [],
-					"_postman_isSubFolder": true
 				}
 			]
 		},
 		{
-			"name": "BackEnd",
+			"name": "AdminClient",
 			"item": [
 				{
 					"name": "AdminLogin",
@@ -339,13 +1088,484 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Brands",
-					"item": [],
-					"_postman_isSubFolder": true
-				},
-				{
 					"name": "Products",
-					"item": [],
+					"item": [
+						{
+							"name": "Inventory",
+							"item": [
+								{
+									"name": "Edit",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJ1cGRhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJkZWxldGVkX2F0IjpudWxsLCJuaWNrbmFtZSI6IkFkbWluIiwiYXZhdGFyIjoieHh4eHh4IiwidXNlcm5hbWUiOiJhZG1pbiJ9LCJleHAiOjE1NjM0Mjk4MTcsImlzcyI6Imdpbi1pbml0In0.n23d4wRZO-tmbiSOBMGeRRJ8VctzTFqRj1vpS3QvlE8",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/x-www-form-urlencoded",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "f",
+													"value": "11",
+													"type": "text"
+												},
+												{
+													"key": "xss",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "xs",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "m",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "l",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "xl",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "xxl",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s35",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s36",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s37",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s38",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s39",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s40",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s405",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s41",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s415",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s42",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s425",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s43",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s435",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s44",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s445",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s45",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s46",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "s47",
+													"value": "11",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/admin/product/:id/inventory",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"admin",
+												"product",
+												":id",
+												"inventory"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "bearer",
+								"bearer": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJ1cGRhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJkZWxldGVkX2F0IjpudWxsLCJuaWNrbmFtZSI6IkFkbWluIiwiYXZhdGFyIjoieHh4eHh4IiwidXNlcm5hbWUiOiJhZG1pbiJ9LCJleHAiOjE1NjMzNDMxOTAsImlzcyI6Imdpbi1pbml0In0.46uz6N-ARdRUK9WlgjYJx_Pe45NnIARRd-l4Au9AqgA",
+										"type": "string"
+									}
+								]
+							},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJ1cGRhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJkZWxldGVkX2F0IjpudWxsLCJuaWNrbmFtZSI6IkFkbWluIiwiYXZhdGFyIjoieHh4eHh4IiwidXNlcm5hbWUiOiJhZG1pbiJ9LCJleHAiOjE1NjM0Mjk4MTcsImlzcyI6Imdpbi1pbml0In0.n23d4wRZO-tmbiSOBMGeRRJ8VctzTFqRj1vpS3QvlE8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Test Using",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "cover",
+											"value": "http://www.qq.com/sadsdsa/dafdfDasd_Dasdas-Fd-f342$%-41",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "carousel",
+											"value": "[\"http://www.use.com/dadasdad\",\"http://www.test.cn/dadsa3872947\"]",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "brand",
+											"value": "Adidas",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "series",
+											"value": "NMD",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "1000.01",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "selling_price",
+											"value": "800.00",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "cost",
+											"value": "60",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "tags",
+											"value": "Test,HHH,XXX",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "inventory",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "on_sale",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/admin/product/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"admin",
+										"product",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJ1cGRhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJkZWxldGVkX2F0IjpudWxsLCJuaWNrbmFtZSI6IkFkbWluIiwiYXZhdGFyIjoieHh4eHh4IiwidXNlcm5hbWUiOiJhZG1pbiJ9LCJleHAiOjE1NjMzNDMxOTAsImlzcyI6Imdpbi1pbml0In0.46uz6N-ARdRUK9WlgjYJx_Pe45NnIARRd-l4Au9AqgA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "ChangedTitle",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "cover",
+											"value": "http://www.qq.com/sadsdsa/dafdfDasd_Dasdas-Fd-f342$%-41",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "carousel",
+											"value": "[\"http://www.use.com/dadasdad\",\"http://www.test.cn/dadsa3872947\"]",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "brand",
+											"value": "Adidas",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "series",
+											"value": "NMD",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "99999.898654",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "selling_price",
+											"value": "999.99",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "cost",
+											"value": "88.568",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "tags",
+											"value": "Test,HHH,XXX",
+											"description": "[MUST]",
+											"type": "text"
+										},
+										{
+											"key": "inventory",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "on_sale",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/admin/product/:id",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"admin",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoxLCJjcmVhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJ1cGRhdGVkX2F0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoiLCJkZWxldGVkX2F0IjpudWxsLCJuaWNrbmFtZSI6IkFkbWluIiwiYXZhdGFyIjoieHh4eHh4IiwidXNlcm5hbWUiOiJhZG1pbiJ9LCJleHAiOjE1NjM0Mjk4MTcsImlzcyI6Imdpbi1pbml0In0.n23d4wRZO-tmbiSOBMGeRRJ8VctzTFqRj1vpS3QvlE8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/admin/product/:id",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"admin",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
 					"_postman_isSubFolder": true
 				}
 			]
