@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"do-mall/models/Auth"
 	"do-mall/models/User"
+	"do-mall/models/Wallet"
 	"do-mall/pkg/e"
 	"do-mall/pkg/logging"
 	"do-mall/pkg/setting"
@@ -320,6 +321,25 @@ func FavoritesDestroy(c *gin.Context) {
 		} else {
 			code = e.INTERNAL_SERVER_ERROR
 		}
+	}
+
+	msg = e.GetMsg(code)
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	})
+}
+
+func TopUp(c *gin.Context) {
+	code := e.BAD_REQUEST
+	data := make(map[string]interface{})
+	var msg string
+	userId := c.MustGet("AuthData").(*util.Claims).User.ID
+	amount := com.StrTo(c.PostForm("amount")).MustFloat64()
+
+	if Wallet.TopUpBalance(amount, userId) {
+		code = e.NO_CONTENT
 	}
 
 	msg = e.GetMsg(code)

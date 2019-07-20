@@ -5,6 +5,7 @@ import (
 	"do-mall/pkg/logging"
 	"fmt"
 	"reflect"
+	"strings"
 	"time"
 )
 
@@ -174,5 +175,23 @@ func DestroyInventory(pid int) bool {
 		return false
 	}
 
+	return true
+}
+
+func DecreaseInventory(pid int, size string) bool {
+	inventory := GetInventory(pid)
+	t := reflect.TypeOf(inventory)
+	v := reflect.ValueOf(inventory)
+	var data int
+	for k := 0; k < t.NumField(); k++ {
+		if t.Field(k).Name == strings.ToUpper(size) {
+			data = v.Field(k).Interface().(int)
+		}
+	}
+	data -= 1
+	if err := models.DB.Debug().Model(Inventory{}).UpdateColumn(size, data).Error; err != nil {
+		logging.Info(err)
+		return false
+	}
 	return true
 }

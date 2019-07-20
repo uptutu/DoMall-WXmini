@@ -16,8 +16,8 @@ type User struct {
 	Sex          int     `json:"sex"`
 	Mobile       string  `json:"mobile"`
 	Introduction string  `json:"introduction"`
-	Balance      float32 `json:"balance"`
-	Coin         float32 `json:"coin"`
+	Balance      float64 `json:"balance"`
+	Coin         float64 `json:"coin"`
 }
 
 func (User) TableName() string {

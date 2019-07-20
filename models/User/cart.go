@@ -8,12 +8,13 @@ import (
 )
 
 type Cart struct {
-	ID     int `gorm:"primary_key" json:"id"`
-	UserId int `json:"user_id"`
-	PId    int `json:"p_id"`
-	OId    int `json:"o_id"`
-	Number int `json:"number"`
-	Status int `json:"status"`
+	ID     int    `gorm:"primary_key" json:"id"`
+	UserId int    `json:"user_id"`
+	PId    int    `json:"p_id"`
+	OId    int    `json:"o_id"`
+	Number int    `json:"number"`
+	Size   string `json:"size"`
+	Status int    `json:"status"`
 
 	CreatedAt time.Time  `json:"created_at"`
 	DeletedAt *time.Time `json:"deleted_at"`
@@ -23,13 +24,13 @@ func (Cart) TableName() string {
 	return "carts"
 }
 
-func PutInCart(userId, pId int) bool {
-	if IsInCart(userId, pId) {
+func PutInCart(userId, pId int, size string) bool {
+	if IsInCart(userId, pId, size) {
 		cart := QueryCart(userId, pId)
 		NumberIncrease(cart.ID)
 		return true
 	} else {
-		if ok := CreateCartRow(userId, pId); ok {
+		if ok := CreateCartRow(userId, pId, size); ok {
 			return true
 		}
 		return false
@@ -62,8 +63,8 @@ func CartsProducts(userId int) (products []Product.Product) {
 	return
 }
 
-func CreateCartRow(userId, pId int) bool {
-	cart := Cart{UserId: userId, PId: pId, Number: 1, CreatedAt: time.Now()}
+func CreateCartRow(userId, pId int, size string) bool {
+	cart := Cart{UserId: userId, PId: pId, Number: 1, Size: size, CreatedAt: time.Now()}
 	if err := models.DB.Debug().Create(&cart).Error; err != nil {
 		logging.Info(err)
 		return false
@@ -81,10 +82,10 @@ func QueryCartById(cId int) (cart Cart) {
 	return
 }
 
-func IsInCart(userId, pId int) bool {
+func IsInCart(userId, pId int, size string) bool {
 	cars := ListCart(userId)
 	for _, item := range cars {
-		if item.PId == pId {
+		if item.PId == pId && item.Size == size {
 			return true
 		}
 	}
@@ -116,4 +117,17 @@ func NumberDecrease(cId int) bool {
 	}
 
 	return true
+}
+
+func OrderCreated(ids interface{}, oid int) bool {
+	if err := models.DB.Debug().Model(Cart{}).Where("id in (?)", ids).UpdateColumn("o_id", oid).Error; err != nil {
+		return false
+	}
+
+	return true
+}
+
+func QueryCarts(ids interface{}) (carts []Cart) {
+	models.DB.Debug().Model(Cart{}).Where("id in (?)", ids).Find(&carts)
+	return
 }

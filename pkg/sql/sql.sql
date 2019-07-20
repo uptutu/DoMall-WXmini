@@ -157,6 +157,7 @@ CREATE TABLE `carts`
     `p_id`       int(11)    NOT NULL DEFAULT 0 COMMENT '商品主键',
     `o_id`       int(11)    NOT NULL DEFAULT 0 COMMENT '订单主键',
     `number`     int(4)     NOT NULL DEFAULT 0 COMMENT '数量',
+    `size`       char(40)   NOT NULL DEFAULT '' COMMENT '城市',
     `status`     tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态,0-未生成订单 1-已生成订单',
     `created_at` timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '加入时间',
     `updated_at` timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '加入时间',
@@ -179,13 +180,13 @@ CREATE TABLE `orders`
 --
     `user_id`       int(11)        NOT NULL DEFAULT 0 COMMENT '用户id',
 -- 收获地址
-    `provinceName`  char(40)       NOT NULL DEFAULT '' COMMENT '省份',
-    `cityName`      char(40)       NOT NULL DEFAULT '' COMMENT '城市',
-    `countyName`    char(40)       NOT NULL DEFAULT '' COMMENT '区县',
-    `detailInfo`    char(200)      NOT NULL DEFAULT '' COMMENT '详细地址',
-    `postalCode`    char(6)        NOT NULL DEFAULT '' COMMENT '邮编',
-    `userName`      char(40)       NOT NULL DEFAULT '' COMMENT '收货人姓名',
-    `telNumber`     char(18)       NOT NULL DEFAULT '' COMMENT '联系电话',
+    `province_name` char(40)       NOT NULL DEFAULT '' COMMENT '省份',
+    `city_name`     char(40)       NOT NULL DEFAULT '' COMMENT '城市',
+    `county_name`   char(40)       NOT NULL DEFAULT '' COMMENT '区县',
+    `detail_info`   char(200)      NOT NULL DEFAULT '' COMMENT '详细地址',
+    `postal_code`   char(6)        NOT NULL DEFAULT '' COMMENT '邮编',
+    `user_name`     char(40)       NOT NULL DEFAULT '' COMMENT '收货人姓名',
+    `tel_number`    char(18)       NOT NULL DEFAULT '' COMMENT '联系电话',
 -- 物流信息
     `express_title` char(40)       NOT NULL DEFAULT '' COMMENT '物流公司',
     `express_code`  char(20)       NOT NULL DEFAULT '' COMMENT '物流编号',

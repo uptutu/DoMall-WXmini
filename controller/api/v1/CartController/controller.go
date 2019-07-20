@@ -1,6 +1,7 @@
 package CartController
 
 import (
+	"do-mall/models/Product"
 	"do-mall/models/User"
 	"do-mall/pkg/e"
 	"do-mall/pkg/logging"
@@ -35,6 +36,7 @@ func Create(c *gin.Context) {
 
 	valid.Required(c.PostForm("pId"), "pId").Message("pId 必须")
 	valid.Numeric(c.PostForm("pId"), "pId").Message("pId 必须有效")
+	valid.Required(c.PostForm("size"), "size").Message("size 必须")
 	if valid.HasErrors() {
 		errorData := make(map[string]interface{})
 		for index, err := range valid.Errors {
@@ -46,7 +48,9 @@ func Create(c *gin.Context) {
 
 	if _, ok := data["error"]; !ok {
 		pId := com.StrTo(c.PostForm("pId")).MustInt()
-		if User.PutInCart(userId, pId) {
+		size := c.PostForm("size")
+		Product.DecreaseInventory(pId, size)
+		if User.PutInCart(userId, pId, size) {
 			code = e.NO_CONTENT
 		}
 	} else {

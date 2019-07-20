@@ -44,6 +44,11 @@ func SelectAddress(id int) (address Address) {
 	return
 }
 
+func SelectDefaultAddress(id int) (address Address) {
+	models.DB.Debug().Model(Address{}).Where("id = ? ADN default = 1", id).First(&address)
+	return
+}
+
 func AddressesOfUser(userId int) (addresses []Address) {
 	if err := models.DB.Debug().Model(Address{}).Where("user_ud = ?", userId).Find(&addresses).Error; err != nil {
 		logging.Info(err)
