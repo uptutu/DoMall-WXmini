@@ -2,6 +2,7 @@ package routers
 
 import (
 	"do-mall/controller/api/admin/AdminController"
+	OrderController2 "do-mall/controller/api/admin/OrderController"
 	ProductController2 "do-mall/controller/api/admin/ProductController"
 	"do-mall/controller/api/v1/AddressController"
 	"do-mall/controller/api/v1/CartController"
@@ -94,10 +95,14 @@ func InitRouter() *gin.Engine {
 		adminProductRoute := admin.Group("/product")
 		{
 			adminProductRoute.POST("/", ProductController2.Create)
-			adminProductRoute.PUT("/:id", ProductController2.Update)
-			adminProductRoute.DELETE("/:id", ProductController2.Destroy)
+			adminProductRoute.PUT("/:oid", ProductController2.Update)
+			adminProductRoute.DELETE("/:oid", ProductController2.Destroy)
 			// Inventory
-			adminProductRoute.PUT("/:id/inventory", ProductController2.UpdateInventory)
+			adminProductRoute.PUT("/:oid/inventory", ProductController2.UpdateInventory)
+		}
+		adminOrderRoute := admin.Group("/order")
+		{
+			adminOrderRoute.POST("/:oid/express", OrderController2.Update)
 		}
 
 	}

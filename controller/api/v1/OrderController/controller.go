@@ -110,7 +110,7 @@ func Destroy(c *gin.Context) {
 				code = e.INTERNAL_SERVER_ERROR
 			}
 		} else {
-			code = e.UNAUTHORIZED
+			code = e.FORBIDDEN
 		}
 	}
 	msg = e.GetMsg(code)
