@@ -18,6 +18,9 @@ var (
 
 	PageSize  int
 	JwtSecret string
+
+	AppId  string
+	Secret string
 )
 
 func init() {
@@ -30,6 +33,7 @@ func init() {
 	LoadBase()
 	LoadServer()
 	LoadApp()
+	LoadWeapp()
 }
 
 func LoadBase() {
@@ -57,4 +61,14 @@ func LoadApp() {
 
 	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!)")
 	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
+}
+
+func LoadWeapp() {
+	sec, err := Cfg.GetSection("weapp")
+	if err != nil {
+		log.Fatalf("FAil to get section 'weapp': %v", err)
+	}
+
+	AppId = sec.Key("appID").MustString("")
+	Secret = sec.Key("secret").MustString("")
 }
