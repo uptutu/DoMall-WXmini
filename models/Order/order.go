@@ -61,7 +61,7 @@ func Update(id int, order *Order) bool {
 }
 
 func Destroy(oid int) bool {
-	if err := models.DB.Unscoped().Delete(Order{}, "id = ?", oid).Error;err != nil {
+	if err := models.DB.Unscoped().Delete(Order{}, "id = ?", oid).Error; err != nil {
 		logging.Info(err)
 		return false
 	}
@@ -69,14 +69,14 @@ func Destroy(oid int) bool {
 }
 
 func Done(oid int) bool {
-	if err := models.DB.Delete(Order{}, "id = ?", oid).Error;err != nil {
+	if err := models.DB.Delete(Order{}, "id = ?", oid).Error; err != nil {
 		logging.Info(err)
 		return false
 	}
 	return true
 }
 
-func QueryOrderByUserId(userId int)(order []Order)  {
+func QueryOrderByUserId(userId int) (order []Order) {
 	models.DB.Debug().Model(Order{}).Where("user_id = ?", userId).Find(&order)
 	return
 }
