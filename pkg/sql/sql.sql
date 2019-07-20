@@ -14,6 +14,7 @@ CREATE TABLE `users`
     `balance`      decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '余额',
     `coin`         decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '平台币',
     `password`     varchar(255)   NOT NULL DEFAULT '' COMMENT '密码',
+    `ssk`          varchar(255)   NOT NULL DEFAULT '' COMMENT 'sessionKey',
 
     `created_at`   timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '写入时间',

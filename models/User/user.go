@@ -11,6 +11,7 @@ type User struct {
 	Password     string  `json:"-"`
 	Unionid      string  `json:"-"`
 	Openid       string  `json:"-"`
+	Ssk          string  `json:"-"`
 	Nickname     string  `json:"nickname"`
 	Avatar       string  `json:"avatar"`
 	Sex          int     `json:"sex"`
@@ -50,6 +51,42 @@ func CreateByPasswd(user *User) bool {
 
 func Update(user *User, data interface{}) bool {
 	if err := models.DB.Debug().Model(user).Update(data).Error; err != nil {
+		logging.Info(err)
+		return false
+	}
+	return true
+}
+
+func CheckUnionid(unionId string) bool {
+	var user User
+	models.DB.Debug().Model(User{}).Where("unionid = ?", unionId).First(&user)
+	if user.ID > 0 {
+		return true
+	} else {
+		return false
+	}
+
+}
+
+func CreateByUnionid(unionid string) bool {
+	user := User{Unionid: unionid}
+	if models.DB.NewRecord(user) {
+		models.DB.Debug().Create(user)
+		return !models.DB.NewRecord(user)
+	}
+
+	return false
+}
+
+func QueryUserByUnionid(unionid string) (user User) {
+	models.DB.Debug().Model(User{}).Where("unionid = ?", unionid).First(&user)
+	return
+}
+
+func PutSsk(unionId, ssk string) bool {
+	user := QueryUserByUnionid(unionId)
+	user.Ssk = ssk
+	if err := models.DB.Debug().Model(user).Update(user).Error; err != nil {
 		logging.Info(err)
 		return false
 	}
