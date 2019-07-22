@@ -6,6 +6,7 @@ CREATE TABLE `users`
 
     `unionid`      char(80) COMMENT 'UNIONID',
     `openid`       char(80) COMMENT 'OPENID',
+    `session_key`  char(80) COMMENT 'OPENID',
     `nickname`     char(80)       NOT NULL DEFAULT '' COMMENT '用户名',
     `avatar`       varchar(255)   NOT NULL DEFAULT '' COMMENT '头像',
     `sex`          tinyint(1)     NOT NULL DEFAULT 0 COMMENT '性别,0-未知 1-男 2-女',
@@ -14,6 +15,7 @@ CREATE TABLE `users`
     `balance`      decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '余额',
     `coin`         decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '平台币',
     `password`     varchar(255)   NOT NULL DEFAULT '' COMMENT '密码',
+    `ssk`          varchar(255)   NOT NULL DEFAULT '' COMMENT 'sessionKey',
 
     `created_at`   timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
         COMMENT '写入时间',

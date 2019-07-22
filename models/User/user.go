@@ -11,6 +11,7 @@ type User struct {
 	Password     string  `json:"-"`
 	Unionid      string  `json:"-"`
 	Openid       string  `json:"-"`
+	SessionKey   string  `json:"-"`
 	Nickname     string  `json:"nickname"`
 	Avatar       string  `json:"avatar"`
 	Sex          int     `json:"sex"`
@@ -49,7 +50,49 @@ func CreateByPasswd(user *User) bool {
 }
 
 func Update(user *User, data interface{}) bool {
-	if err := models.DB.Debug().Model(user).Update(data).Error; err != nil {
+	if err := models.DB.Debug().Model(user).Where("id = ?", user.ID).Update(data).Error; err != nil {
+		logging.Info(err)
+		return false
+	}
+	return true
+}
+
+func Create(user *User) bool {
+	if models.DB.NewRecord(*user) {
+		models.DB.Debug().Create(*user)
+		return !models.DB.NewRecord(*user)
+	}
+
+	return false
+}
+
+func AddUnionid(userId int, unionid string) bool {
+	if err := models.DB.Debug().Model(User{}).Where("id = ?", userId).UpdateColumn("unionid", unionid).Error; err != nil {
+		logging.Info(err)
+		return false
+	}
+	return true
+}
+
+func QueryUserByUnionid(unionid string) (user User) {
+	models.DB.Debug().Model(User{}).Where("unionid = ?", unionid).First(&user)
+	return
+}
+
+func QueryUserByOpenid(openid string) (user User) {
+	models.DB.Debug().Model(User{}).Where("openid = ?", openid).First(&user)
+	return
+}
+
+func QueryUserByid(id int) (user User) {
+	models.DB.Debug().Model(User{}).Where("id = ?", id).First(&user)
+	return
+}
+
+func PutSsk(openid, ssk string) bool {
+	user := QueryUserByOpenid(openid)
+	user.SessionKey = ssk
+	if err := models.DB.Debug().Model(user).Update(user).Error; err != nil {
 		logging.Info(err)
 		return false
 	}
