@@ -57,6 +57,14 @@ func Update(user *User, data interface{}) bool {
 	return true
 }
 
+func UpdateColumn(user *User,column string, data interface{}) bool {
+	if err := models.DB.Debug().Model(User{}).Where("id = ?", user.ID).UpdateColumn(column, data).Error; err != nil {
+		logging.Info(err)
+		return false
+	}
+	return true
+}
+
 func Create(user *User) bool {
 	if models.DB.NewRecord(*user) {
 		models.DB.Debug().Create(*user)

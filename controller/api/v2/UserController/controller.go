@@ -177,3 +177,72 @@ func WxGetUserInfo(c *gin.Context) {
 	})
 
 }
+
+func WxGetPhone(c *gin.Context){
+	code := e.INTERNAL_SERVER_ERROR
+	data := make(map[string]interface{})
+	var msg string
+	userId := c.MustGet("AuthData").(*util.Claims).User.ID
+	valid := validation.Validation{}
+
+	valid.Required(c.PostForm("encryptedData"), "encryptedData").Message("encryptedData 必须")
+	valid.Required(c.PostForm("iv"), "iv").Message("iv 必须")
+	if valid.HasErrors() {
+		code = e.BAD_REQUEST
+		errorData := make(map[string]interface{})
+		for index, err := range valid.Errors {
+			logging.Info(err.Key, err.Message)
+			errorData[strconv.Itoa(index)] = map[string]interface{}{err.Key: err.Message}
+		}
+		data["error"] = errorData
+	}
+
+	if _, ok := data["error"]; ok {
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+
+	user := User.QueryUserByid(userId)
+	encryptedData := c.PostForm("encryptedData")
+	iv := c.PostForm("iv")
+	ssk := user.SessionKey
+
+	phone, err := weapp.DecryptPhoneNumber(ssk, encryptedData, iv)
+	if err != nil {
+		code = e.INTERNAL_SERVER_ERROR
+		msg = "解析用户信息失败"
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+	if !User.UpdateColumn(&user, "mobile", phone.PurePhoneNumber) {
+		code = e.INTERNAL_SERVER_ERROR
+		msg = "更新用户信息失败"
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+	user = User.QueryUserByid(userId)
+	data["userInfo"] = user
+	code = e.OK
+	msg = e.GetMsg(code)
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	})
+
+}
