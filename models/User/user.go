@@ -50,7 +50,7 @@ func CreateByPasswd(user *User) bool {
 }
 
 func Update(user *User, data interface{}) bool {
-	if err := models.DB.Debug().Model(user).Update(data).Error; err != nil {
+	if err := models.DB.Debug().Model(user).Where("id = ?", user.ID).Update(data).Error; err != nil {
 		logging.Info(err)
 		return false
 	}
@@ -81,6 +81,11 @@ func QueryUserByUnionid(unionid string) (user User) {
 
 func QueryUserByOpenid(openid string) (user User) {
 	models.DB.Debug().Model(User{}).Where("openid = ?", openid).First(&user)
+	return
+}
+
+func QueryUserByid(id int) (user User) {
+	models.DB.Debug().Model(User{}).Where("id = ?", id).First(&user)
 	return
 }
 

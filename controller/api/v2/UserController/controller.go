@@ -104,7 +104,76 @@ func WxGetUserInfo(c *gin.Context) {
 	code := e.INTERNAL_SERVER_ERROR
 	data := make(map[string]interface{})
 	var msg string
+	userId := c.MustGet("AuthData").(*util.Claims).User.ID
 	valid := validation.Validation{}
 
-	valid.Required(c.PostForm(""))
+	valid.Required(c.PostForm("rawData"), "rawData").Message("rawData 必须")
+	valid.Required(c.PostForm("signature"), "signature").Message("signature 必须")
+	valid.Required(c.PostForm("encryptedData"), "encryptedData").Message("encryptedData 必须")
+	valid.Required(c.PostForm("iv"), "iv").Message("iv 必须")
+	if valid.HasErrors() {
+		code = e.BAD_REQUEST
+		errorData := make(map[string]interface{})
+		for index, err := range valid.Errors {
+			logging.Info(err.Key, err.Message)
+			errorData[strconv.Itoa(index)] = map[string]interface{}{err.Key: err.Message}
+		}
+		data["error"] = errorData
+	}
+
+	if _, ok := data["error"]; ok {
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+
+	user := User.QueryUserByid(userId)
+	rawData := c.PostForm("rawData")
+	encryptedData := c.PostForm("encryptedData")
+	signature := c.PostForm("signature")
+	iv := c.PostForm("iv")
+	ssk := user.SessionKey
+
+	ui, err := weapp.DecryptUserInfo(rawData, encryptedData, signature, iv, ssk)
+	if err != nil {
+		code = e.INTERNAL_SERVER_ERROR
+		msg = "解析用户信息失败"
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+	UserInfo := User.User{
+		Avatar:   ui.Avatar,
+		Nickname: ui.Nickname,
+		Sex:      ui.Gender,
+	}
+	if !User.Update(&user, UserInfo) {
+		code = e.INTERNAL_SERVER_ERROR
+		msg = "更新用户信息失败"
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+	user = User.QueryUserByid(userId)
+	data["userInfo"] = user
+	code = e.OK
+	msg = e.GetMsg(code)
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	})
+
 }
