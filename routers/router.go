@@ -91,6 +91,7 @@ func InitRouter() *gin.Engine {
 		{
 			v2wxUser.GET("/", v2UserController.WxLogin)
 			v2wxUser.POST("/", jwt.JWT(), v2UserController.WxGetUserInfo)
+			v2wxUser.POST("/phone", jwt.JWT(), v2UserController.WxGetPhone)
 		}
 	}
 

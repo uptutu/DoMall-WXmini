@@ -19,7 +19,7 @@ func WxLogin(c *gin.Context) {
 	var msg string
 	valid := validation.Validation{}
 
-	valid.Required(c.PostForm("code"), "code").Message("code 必须")
+	valid.Required(c.Param("code"), "code").Message("code 必须")
 	if valid.HasErrors() {
 		code = e.BAD_REQUEST
 		errorData := make(map[string]interface{})
@@ -178,7 +178,7 @@ func WxGetUserInfo(c *gin.Context) {
 
 }
 
-func WxGetPhone(c *gin.Context){
+func WxGetPhone(c *gin.Context) {
 	code := e.INTERNAL_SERVER_ERROR
 	data := make(map[string]interface{})
 	var msg string
