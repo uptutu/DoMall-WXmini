@@ -90,7 +90,7 @@ func InitRouter() *gin.Engine {
 		v2wxUser := apiv2.Group("/wx/user")
 		{
 			v2wxUser.GET("/", v2UserController.WxLogin)
-			v2wxUser.POST("/", v2UserController.WxGetUserInfo)
+			v2wxUser.POST("/", jwt.JWT(), v2UserController.WxGetUserInfo)
 		}
 	}
 
