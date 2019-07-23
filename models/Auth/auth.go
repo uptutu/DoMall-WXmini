@@ -6,6 +6,8 @@ type Auth struct {
 	ID       int    `gorm:"primary_key" json:"id"`
 	Mobile   string `json:"mobile"`
 	Password string `json:"password"`
+	Unionid  string `json:"-"`
+	Openid   string `json:"-"`
 }
 
 type AuthAdmin struct {
@@ -31,5 +33,11 @@ func (AuthAdmin) TableName() string {
 func CheckAdmin(username, password string) int {
 	var auth AuthAdmin
 	models.DB.Debug().Select("id").Where(AuthAdmin{Username: username, Password: password}).First(&auth)
+	return int(auth.ID)
+}
+
+func CheckOpenid(openid string) int {
+	var auth Auth
+	models.DB.Debug().Select("id").Where(Auth{Openid:openid}).First(&auth)
 	return int(auth.ID)
 }
