@@ -214,6 +214,35 @@ CREATE TABLE `orders`
   DEFAULT CHARSET = utf8 COMMENT ='订单表';
 
 
+-- 微信支付表
+DROP TABLE IF EXISTS `wxorders`;
+CREATE TABLE `wxorders`
+(
+    `id`             int(11)        NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `user_id`        int(11)        NOT NULL DEFAULT 0 COMMENT '用户id',
+    `transaction_id` char(32)       NOT NULL DEFAULT '' COMMENT '微信支付订单号',
+    `out_trade_no`   char(32)       NOT NULL DEFAULT '' COMMENT '商户订单号',
+    `nonce_str`      char(32)       NOT NULL DEFAULT '' COMMENT '随机字符串',
+    `sign`           char(32)       NOT NULL DEFAULT '' COMMENT '签名',
+    `body`           char(128)      NOT NULL DEFAULT '' COMMENT '商品描述',
+    `detail`         varchar(255)   NOT NULL DEFAULT '' COMMENT '商品详情',
+    `attach`         char(127)      NOT NULL DEFAULT '' COMMENT '附加数据',
+    `sum_pay`        decimal(12, 2) NOT NULL DEFAULT 0 COMMENT '结算金额',
+    `total_fee`      int            NOT NULL DEFAULT 0 COMMENT '标价金额,单位为分',
+    `created_at`     timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '创建时间',
+    `updated_at`     timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '结算时间',
+    `pushed_at`      timestamp      NOT NULL DEFAULT '0000-00-00 00:00:00'
+        COMMENT '推送时间',
+    `deleted_at`     timestamp      NULL COMMENT '完成时间',
+    PRIMARY KEY (`id`),
+    KEY (`user_id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = utf8 COMMENT ='微信支付表';
+
+
 -- 管理员表
 DROP TABLE IF EXISTS `admins`;
 CREATE TABLE `admins`

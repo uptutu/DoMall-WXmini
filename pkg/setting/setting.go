@@ -21,6 +21,8 @@ var (
 
 	AppId  string
 	Secret string
+	MchID  string
+	PayKey string
 )
 
 func init() {
@@ -71,4 +73,7 @@ func LoadWeapp() {
 
 	AppId = sec.Key("appID").MustString("")
 	Secret = sec.Key("secret").MustString("")
+	MchID = sec.Key("mch_id").MustString("")
+	PayKey = sec.Key("payKey").MustString("")
+
 }

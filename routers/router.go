@@ -93,6 +93,12 @@ func InitRouter() *gin.Engine {
 			v2wxUser.POST("/", jwt.JWT(), v2UserController.WxGetUserInfo)
 			v2wxUser.POST("/phone", jwt.JWT(), v2UserController.WxGetPhone)
 		}
+
+		v2wxPay := apiv2.Group("/pay")
+		{
+			v2wxPay.POST("/topup", jwt.JWT(), v2UserController.WxTopup)
+			v2wxPay.Any("/topup/callback", v2UserController.WxTopup)
+		}
 	}
 
 	// 注册后台路由
