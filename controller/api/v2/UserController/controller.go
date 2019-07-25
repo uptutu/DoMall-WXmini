@@ -2,6 +2,7 @@ package UserController
 
 import (
 	"do-mall/models/Auth"
+	"do-mall/models/Order"
 	"do-mall/models/User"
 	"do-mall/models/Wallet"
 	"do-mall/models/WxOrder"
@@ -9,12 +10,13 @@ import (
 	"do-mall/pkg/logging"
 	"do-mall/pkg/setting"
 	"do-mall/pkg/util"
+	"encoding/json"
+	"fmt"
 	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
 	"github.com/medivhzhan/weapp"
 	"github.com/medivhzhan/weapp/payment"
-	"golang.org/x/tools/go/ssa/interp/testdata/src/fmt"
 	"strconv"
 )
 
@@ -288,7 +290,6 @@ func WxTopup(c *gin.Context) {
 	Body := "充值 " + com.ToStr(sumPay) + "RMB"
 	user := User.QueryUserByid(userId)
 
-
 	form := payment.Order{
 		AppID:      setting.AppId,
 		MchID:      setting.MchID,
@@ -329,15 +330,15 @@ func WxTopup(c *gin.Context) {
 		return
 	}
 	order := WxOrder.WxOrder{
-		UserId:userId,
-		OutTradeNo:tradeNo,
-		NonceStr:res.NonceStr,
-		Sign:res.Sign,
-		Body:Body,
-		Detail:form.Detail,
-		Attach:form.Attach,
-		SumPay:sumPay,
-		TotalFee:form.TotalFee,
+		UserId:     userId,
+		OutTradeNo: tradeNo,
+		NonceStr:   res.NonceStr,
+		Sign:       res.Sign,
+		Body:       Body,
+		Detail:     form.Detail,
+		Attach:     form.Attach,
+		SumPay:     sumPay,
+		TotalFee:   form.TotalFee,
 	}
 	if !WxOrder.Create(&order) {
 		logging.Info("未能插入微信订单表")
@@ -362,13 +363,182 @@ func WxTopup(c *gin.Context) {
 }
 
 func WxTopupCallback(c *gin.Context) {
-	err := payment.HandlePaidNotify(c.Writer, c.Request,  func(ntf payment.PaidNotify) (bool, string) {
+	err := payment.HandlePaidNotify(c.Writer, c.Request, func(ntf payment.PaidNotify) (bool, string) {
 		tradeNo := ntf.OutTradeNo
-		order := WxOrder.QueryByTradeNo(tradeNo)
-		if Wallet.TopUpBalance(order.SumPay, order.UserId) {
-			order.TransactionId = ntf.TransactionID
-			if WxOrder.Update(&order) {
-				return true, ""
+		wxOrder := WxOrder.QueryByTradeNo(tradeNo)
+		if Wallet.TopUpBalance(wxOrder.SumPay, wxOrder.UserId) {
+			wxOrder.TransactionId = ntf.TransactionID
+			if WxOrder.Update(&wxOrder) {
+				if Wallet.TopUpBalance(wxOrder.SumPay, wxOrder.UserId) && WxOrder.Destroy(&wxOrder) {
+					return true, ""
+				}
+			}
+		}
+		return false, "服务器内部更新错误"
+	})
+	if err != nil {
+		logging.Info(err)
+	}
+}
+
+type Info struct {
+	Oid    int `json:"oid"`
+	UserId int `json:"userId"`
+}
+
+func WxPayForOrder(c *gin.Context) {
+	code := e.INTERNAL_SERVER_ERROR
+	data := make(map[string]interface{})
+	var msg string
+	userId := c.MustGet("AuthData").(*util.Claims).User.ID
+	valid := validation.Validation{}
+
+	valid.Required(c.PostForm("oid"), "oid").Message("oid(Order Id) 必须")
+	if valid.HasErrors() {
+		code = e.BAD_REQUEST
+		errorData := make(map[string]interface{})
+		for index, err := range valid.Errors {
+			logging.Info(err.Key, err.Message)
+			errorData[strconv.Itoa(index)] = map[string]interface{}{err.Key: err.Message}
+		}
+		data["error"] = errorData
+	}
+
+	if _, ok := data["error"]; ok {
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+	oid := com.StrTo(c.PostForm("oid")).MustInt()
+	if !Order.IsOwner(userId, oid) {
+		code = e.FORBIDDEN
+		msg = e.GetMsg(code)
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+
+	order := Order.QueryOrderById(oid)
+
+	totalFee := int(order.SumPay * 100)
+	tradeNo := string(com.RandomCreateBytes(32))
+	receiveUrl := "https://xxx.xxx.xxx"
+	jsonData := Info{
+		order.ID, userId,
+	}
+	jsonStr, err := json.Marshal(&jsonData)
+	if err != nil {
+		logging.Info(err)
+		code = e.INTERNAL_SERVER_ERROR
+		msg = fmt.Sprint(err)
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+	Body := string(jsonStr)
+	user := User.QueryUserByid(userId)
+
+	form := payment.Order{
+		AppID:      setting.AppId,
+		MchID:      setting.MchID,
+		Body:       Body,
+		NotifyURL:  receiveUrl,
+		OpenID:     user.Openid,
+		OutTradeNo: tradeNo,
+		TotalFee:   totalFee,
+		Detail:     Body,
+		Attach:     Body,
+	}
+
+	res, err := form.Unify(setting.PayKey)
+	if err != nil {
+		logging.Info(err)
+		code = e.INTERNAL_SERVER_ERROR
+		msg = fmt.Sprint("出错问题: %v", err)
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+
+	params, err := payment.GetParams(res.AppID, setting.PayKey, res.NonceStr, res.PrePayID)
+	if err != nil {
+		logging.Info(err)
+		code = e.INTERNAL_SERVER_ERROR
+		msg = fmt.Sprint("出错问题: %v", err)
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+	wxOrder := WxOrder.WxOrder{
+		UserId:     userId,
+		OutTradeNo: tradeNo,
+		NonceStr:   res.NonceStr,
+		Sign:       res.Sign,
+		Body:       Body,
+		Detail:     form.Detail,
+		Attach:     form.Attach,
+		SumPay:     order.SumPay,
+		TotalFee:   form.TotalFee,
+	}
+	if !WxOrder.Create(&wxOrder) {
+		logging.Info("未能插入微信订单表")
+		code = e.INTERNAL_SERVER_ERROR
+		msg = fmt.Sprint("未能插入微信订单表")
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+	code = e.OK
+	msg = e.GetMsg(code)
+	data["data"] = params
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	})
+
+}
+
+func WxPayForOrderCallback(c *gin.Context) {
+	err := payment.HandlePaidNotify(c.Writer, c.Request, func(ntf payment.PaidNotify) (bool, string) {
+		tradeNo := ntf.OutTradeNo
+		wxOrder := WxOrder.QueryByTradeNo(tradeNo)
+		if Wallet.TopUpBalance(wxOrder.SumPay, wxOrder.UserId) {
+			wxOrder.TransactionId = ntf.TransactionID
+			if WxOrder.Update(&wxOrder) {
+				var info Info
+				err := json.Unmarshal([]byte(wxOrder.Body), &info)
+				if err != nil {
+					logging.Info(err)
+					return false, "解析Body失败"
+				}
+				if Order.Settlement(info.UserId, info.Oid) && WxOrder.Destroy(&wxOrder) {
+					return true, ""
+				}
 			}
 		}
 		return false, "服务器内部更新错误"

@@ -131,3 +131,8 @@ func QueryCarts(ids interface{}) (carts []Cart) {
 	models.DB.Debug().Model(Cart{}).Where("id in (?)", ids).Find(&carts)
 	return
 }
+
+func QueryCartByOid(oid int) (carts []Cart) {
+	models.DB.Debug().Model(Cart{}).Where("o_id = ?",oid).Find(&carts)
+	return
+}

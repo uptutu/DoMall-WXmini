@@ -45,3 +45,11 @@ func QueryByTradeNo(no string) (order WxOrder) {
 	models.DB.Debug().Model(&order).Where("tradeNo = ?", no).First(&order)
 	return
 }
+
+func Destroy(order *WxOrder) bool {
+	if err := models.DB.Debug().Model(WxOrder{}).Delete(*order).Error; err != nil {
+		logging.Info(err)
+		return false
+	}
+	return true
+}

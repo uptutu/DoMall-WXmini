@@ -85,3 +85,12 @@ func QueryOrderById(id int) (order Order) {
 	models.DB.Debug().Model(Order{}).Where("id = ?", id).First(&order)
 	return
 }
+
+func IsOwner(userId, id int) bool {
+	var data int
+	models.DB.Debug().Model(Order{}).Select("1").Where("id = ? AND user_id = ?", id, userId).First(&data)
+	if data != 0 {
+		return true
+	}
+	return false
+}

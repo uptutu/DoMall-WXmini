@@ -178,3 +178,54 @@ func Pay(c *gin.Context) {
 		"data": data,
 	})
 }
+
+func ViewOrderDetails(c *gin.Context)  {
+	code := e.INTERNAL_SERVER_ERROR
+	data := make(map[string]interface{})
+	var msg string
+	userId := c.MustGet("AuthData").(*util.Claims).User.ID
+	valid := validation.Validation{}
+	valid.Required(c.Param("id"), "id").Message("id(Order Id) 必须")
+	if valid.HasErrors() {
+		code = e.BAD_REQUEST
+		errorData := make(map[string]interface{})
+		for index, err := range valid.Errors {
+			logging.Info(err.Key, err.Message)
+			errorData[strconv.Itoa(index)] = map[string]interface{}{err.Key: err.Message}
+		}
+		data["error"] = errorData
+	}
+
+	if _, ok := data["error"]; ok {
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+	oid := com.StrTo(c.Param("id")).MustInt()
+	if !Order.IsOwner(userId, oid) {
+		code = e.FORBIDDEN
+		msg = e.GetMsg(code)
+		c.JSON(code, gin.H{
+			"code": code,
+			"msg":  msg,
+			"data": data,
+		})
+		c.Abort()
+		return
+	}
+	carts := User.QueryCartByOid(oid)
+	for i, cart := range carts {
+		data[string(i)] = Product.Show(cart.PId)
+	}
+	code = e.OK
+	msg = e.GetMsg(code)
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	})
+}

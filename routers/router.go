@@ -65,6 +65,7 @@ func InitRouter() *gin.Engine {
 			userRoute.POST("/order", jwt.JWT(), OrderController.Create)
 			userRoute.DELETE("/order/:id", jwt.JWT(), OrderController.Destroy)
 			userRoute.POST("/order/:id/pay", jwt.JWT(), OrderController.Pay)
+			userRoute.GET("/order/:id", jwt.JWT(), OrderController.ViewOrderDetails)
 
 			// Wallet
 			userRoute.POST("/balance", jwt.JWT(), UserController.TopUp)
@@ -98,6 +99,8 @@ func InitRouter() *gin.Engine {
 		{
 			v2wxPay.POST("/topup", jwt.JWT(), v2UserController.WxTopup)
 			v2wxPay.Any("/topup/callback", v2UserController.WxTopupCallback)
+			v2wxPay.POST("/order", v2UserController.WxPayForOrder)
+			v2wxPay.Any("/order/callback", v2UserController.WxPayForOrderCallback)
 		}
 	}
 
