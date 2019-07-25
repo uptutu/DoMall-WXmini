@@ -67,9 +67,6 @@ func InitRouter() *gin.Engine {
 			userRoute.POST("/order/:id/pay", jwt.JWT(), OrderController.Pay)
 			userRoute.GET("/order/:id", jwt.JWT(), OrderController.ViewOrderDetails)
 
-			// Wallet
-			userRoute.POST("/balance", jwt.JWT(), UserController.TopUp)
-
 		}
 
 		// Products
