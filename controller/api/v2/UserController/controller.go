@@ -26,7 +26,7 @@ func WxLogin(c *gin.Context) {
 	var msg string
 	valid := validation.Validation{}
 
-	valid.Required(c.Param("code"), "code").Message("code 必须")
+	valid.Required(c.Query("code"), "code").Message("code 必须")
 	if valid.HasErrors() {
 		code = e.BAD_REQUEST
 		errorData := make(map[string]interface{})
@@ -46,7 +46,7 @@ func WxLogin(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	wxCode := c.PostForm("code")
+	wxCode := c.Query("code")
 	res, err := weapp.Login(setting.AppId, setting.Secret, wxCode)
 	if err != nil {
 		code = e.INTERNAL_SERVER_ERROR
