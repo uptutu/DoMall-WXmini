@@ -9,6 +9,7 @@ API 接口初始化框架,拉下即用
 <br>
 在GoLand设置中需要勾选 Go mod 启用,不然会有包会红线
 
+对swagger 支持还未完成
 安装swagger
 ```bash
 go get -u github.com/swaggo/swag/cmd/swag
@@ -34,7 +35,7 @@ go get -u github.com/swaggo/swag/cmd/swag
 <li>github.com/Unknwon/com
 <li> github.com/astaxie/beego/validation
 
-API文档
+API文档（待完善）
 <li>github.com/swaggo/swag/cmd/swag
 <li>github.com/swaggo/gin-swagger
 <li>github.com/swaggo/gin-swagger/swaggerFiles
